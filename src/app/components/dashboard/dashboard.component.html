@@ -48,6 +48,7 @@
                 <div class="t-item" [style.width]="!week.id ? '6rem' : '14rem'"
                     *ngFor="let week of utils.getWeekData(); let i = index">
                     <div class="p-0" *ngFor="let hour of time">
+
                         <!-- Header -->
                         <div class="head-item" *ngIf="!week.id && hour.toString() == 'false'"></div>
                         <div class="head-item" *ngIf="week.id && hour.toString() == 'false'">{{getDaysInWeek(i) <= 0 ?
@@ -60,39 +61,19 @@
                                     {{hour.toString().length == 1 ? '0'+ hour : hour}}:00</div>
 
                                 <!-- Item -->
-                                <div class="item" [class]="" *ngIf="week.id && hour.toString() != 'false'">
-                                    <div class="p-0" *ngFor="let appointment of appointments">
-                                        <div class="bg-success h-100 p-2" *ngIf="checkAppointments(appointment, hour, week)">
+                                <div class="item p-0" [class]="" *ngIf="week.id && hour.toString() != 'false'">
+                                    <div class="p-0" [class]="checkAppointments(appointment, hour, week) ? 'h-100':''"
+                                        *ngFor="let appointment of appointments">
+                                        <div class="bg-success h-100 p-2" role="button"
+                                            *ngIf="checkAppointments(appointment, hour, week)"
+                                            (click)="showAppointment(appointment)">
                                             <span>1 VIEWINGS</span>
                                         </div>
                                     </div>
                                 </div>
-
                         </div>
-
-
-
-                    </div>
-                    <!-- <thead>
-                    <tr class="text-center text-secondary">
-                        <th scope="col" class="border-0"></th>
-                        <th scope="col" *ngFor="let week of utils.getWeekData(); let i = index">{{getDaysInWeek(i) <= 0
-                                ? getLastDayInMonth(1) + getDaysInWeek(i) : getLastDayInMonth(0) < getDaysInWeek(i) ?
-                                getDaysInWeek(i) - getLastDayInMonth(0) : getDaysInWeek(i) }}
-                                {{week.name.substring(0,3).toLocaleUpperCase()}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let hour of time">
-                        <th scope="row">{{hour.toString().length == 1 ? '0'+ hour : hour}}:00</th>
-                        <td class="p-0" *ngFor="let appointment of appointments">
-                            <div class="bg-success h-100 p-2" *ngIf="checkAppointments(appointment, hour)">
-                                <span>1 VIEWINGS</span>
-                                </div>
-                        </td>
                         
-                    </tr>
-                </tbody> -->
+                    </div>
             </table>
         </div>
     </div>
