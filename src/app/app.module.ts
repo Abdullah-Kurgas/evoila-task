@@ -10,6 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatIconModule } from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     AppRoutingModule,
     BrowserModule,
+    MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
     MatIconModule,

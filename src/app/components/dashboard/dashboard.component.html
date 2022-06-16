@@ -6,8 +6,7 @@
         <div class="border border-end-0 bg-white p-3 h-50">
             <h4 class="text-secondary">NEXT VIEWING</h4>
             <div class="image">
-                <img src=""
-                    alt="image">
+                <img src="" alt="image">
             </div>
             <div class="mt-3">
                 <p class="mb-0 fw-bold">Great apartman in east Berlin</p>
@@ -26,21 +25,33 @@
             </div>
         </div>
     </div>
+
     <div class="col-10 h-100 px-0">
+
         <div class="d-flex justify-content-between align-items-center p-2 border border-bottom-0 bg-white">
-            <h3 class="m-0">{{getDaysInWeek(1)}}-{{getDaysInWeek(7)}} {{utils.getMonthsData()[selected.getMonth()].name}} {{selected.getFullYear()}}</h3>
-            <div class="d-flex align-items-center">
-                <mat-icon>keyboard_arrow_left</mat-icon>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </div>
+            <h3 class="m-0">{{ getDaysInWeek(0) <= 0 ? getLastDayInMonth(1) + getDaysInWeek(0) : getDaysInWeek(0) }} -
+                    {{ getLastDayInMonth(0) < getDaysInWeek(6) ? getDaysInWeek(6) - getLastDayInMonth(0) :
+                    getDaysInWeek(6) }} {{utils.getMonthsData()[selected.getMonth()].name}}
+                    {{selected.getFullYear()}}</h3>
+                    <div class="d-flex align-items-center">
+                        <button mat-icon-button (click)="changeWeek('prev')">
+                            <mat-icon mat-icon-button>keyboard_arrow_left</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="changeWeek('next')">
+                            <mat-icon mat-icon-button>keyboard_arrow_right</mat-icon>
+                        </button>
+                    </div>
         </div>
+
         <div class="table mb-0">
             <table class="table table-bordered bg-white mb-0">
                 <thead>
                     <tr class="text-center text-secondary">
                         <th scope="col" class="border-0"></th>
-                        <th scope="col" *ngFor="let week of utils.getWeekData()">{{getDaysInWeek(week.id)}} {{week.name.substring(0,3).toLocaleUpperCase()}}</th>
-                        
+                        <th scope="col" *ngFor="let week of utils.getWeekData(); let i = index">{{getDaysInWeek(i) <= 0
+                                ? getLastDayInMonth(1) + getDaysInWeek(i) : getLastDayInMonth(0) < getDaysInWeek(i) ?
+                                getDaysInWeek(i) - getLastDayInMonth(0) : getDaysInWeek(i) }}
+                                {{week.name.substring(0,3).toLocaleUpperCase()}}</th>
                     </tr>
                 </thead>
                 <tbody>
