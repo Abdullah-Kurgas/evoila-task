@@ -4,13 +4,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// Material modules
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    AppRoutingModule
+    MatCardModule,
+    MatDatepickerModule,
+    MatIconModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
