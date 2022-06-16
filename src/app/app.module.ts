@@ -11,6 +11,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
   imports: [
     AppRoutingModule,
     BrowserModule,
+    HttpClientModule,
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,

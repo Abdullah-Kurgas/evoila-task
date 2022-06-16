@@ -1,5 +1,6 @@
 export class Utils {
     private static week = [
+        { id: 0, name: '' },
         { id: 1, name: 'Sunday' },
         { id: 2, name: 'Monday' },
         { id: 3, name: 'Tuesday' },

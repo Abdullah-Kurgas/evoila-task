@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatCalendar } from '@angular/material/datepicker';
 import { Utils } from 'src/app/shared/Utils';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -11,12 +13,18 @@ export class DashboardComponent implements OnInit {
   utils = Utils;
 
   selected: Date = new Date();
-  time = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+  time = [false,8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7];
 
-  constructor() { }
+  appointments!: any[];
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    // console.log(new Date('2019-03-09T11:00:00.000+0000'));
 
+    this.http.get('./assets/data.json').subscribe((res: any) => {
+      this.appointments = res.data.appointments.nodes;
+    });
   }
 
   changeWeek(type: string) {
@@ -46,5 +54,17 @@ export class DashboardComponent implements OnInit {
       31 - new Date(this.selected.getFullYear(), this.selected.getMonth() - month, 31).getDate()
       :
       new Date(this.selected.getFullYear(), this.selected.getMonth() - month, 31).getDate();
+  }
+
+  checkAppointments(appointment: any, hour: any, week: any): boolean {
+    let appointmentDate = new Date(appointment.date)
+
+    if (appointmentDate.toDateString().includes(week.name.substring(0, 3)) && this.selected.toDateString() == appointmentDate.toDateString() && hour == appointmentDate.getHours()) {
+
+      console.log(appointmentDate, this.selected.toDateString());
+      return true;
+    };
+
+    return false;
   }
 }
