@@ -59,9 +59,10 @@
 
                         <!-- Header -->
                         <div class="head-item" *ngIf="!week.id && hour.toString() == 'false'"></div>
-                        <div class="head-item" *ngIf="week.id && hour.toString() == 'false'">{{getDaysInWeek(i) <= 0 ?
-                                (getLastDayInMonth(1) + getDaysInWeek(i)) : getLastDayInMonth(0) < getDaysInWeek(i) ?
-                                (getDaysInWeek(i) - getLastDayInMonth(0)) : getDaysInWeek(i) }}
+                        <div class="head-item" *ngIf="week.id && hour.toString() == 'false'">{{
+                            getDaysInWeek(i-1) <= 0 ?
+                                (getLastDayInMonth(1) + getDaysInWeek(i-1)) : getLastDayInMonth(0) < getDaysInWeek(i-1) ?
+                                (getDaysInWeek(i-1) - getLastDayInMonth(0)) : getDaysInWeek(i-1) }}
                                 {{week.name.substring(0,3).toLocaleUpperCase()}} </div>
 
                                 <!-- Hour side -->
