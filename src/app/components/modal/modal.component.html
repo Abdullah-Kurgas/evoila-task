@@ -1,11 +1,25 @@
 <div class="apointment-modal">
     <div class="d-flex justify-content-between align-items-center p-3 border bg-white">
-        <span class="d-flex align-items-center mx-2">
-            <mat-icon class="text-primary me-1 fs-5">calendar_today</mat-icon> {{appointmentDate.toDateString()}}
-        </span>
         <div class="d-flex align-items-center">
-            <mat-icon (click)="changeApointment('prev')" role="button">keyboard_arrow_left</mat-icon>
-            <mat-icon (click)="changeApointment('next')" role="button">keyboard_arrow_right</mat-icon>
+            <span class="d-flex align-items-center mx-2">
+                <mat-icon class="text-primary me-1 fs-5">calendar_today</mat-icon> {{appointmentDate.toDateString()}}
+            </span>
+            <span class="d-flex align-items-center mx-2">
+                <mat-icon class="text-primary me-1 fs-5">access_time</mat-icon>
+                {{appointmentDate.getHours().toString().length > 1 ? appointmentDate.getHours() :
+                '0'+appointmentDate.getHours()}}:00 - {{(appointmentDate.getHours()+1).toString().length > 1 ?
+                (appointmentDate.getHours()+1) : '0'+(appointmentDate.getHours()+1)}}:00
+            </span>
+        </div>
+        <div class="row align-items-center me-1">
+            <div class="col-6">
+                <mat-icon (click)="changeApointment('prev')" role="button" *ngIf="itemNumber !== 0">keyboard_arrow_left
+                </mat-icon>
+            </div>
+            <div class="col-6">
+                <mat-icon (click)="changeApointment('next')" role="button" *ngIf="(data.length-1) > itemNumber">
+                    keyboard_arrow_right</mat-icon>
+            </div>
         </div>
     </div>
     <div class="bg-light p-4 apointment-modal-data">
@@ -13,29 +27,31 @@
             <div class="row">
                 <div class="col-6 d-flex align-items-center">
                     <div class="small-img shadow-sm">
-                        <img src="https://cf.bstatic.com/xdata/images/hotel/270x200/207121485.webp?k=5553c15c6e8205c912ed3a5a87a4403bbe8436cf926c3e9ec2a2aa67e29f3a44&o="
-                            alt="small-img">
+                        <img src="../../../assets/no-thumbnail.jpg" alt="small-img">
                     </div>
                     <div class="mx-3">
-                        <p class="mb-0 fw-bold">Great apartman in east Berlin</p>
-                        <p class="mb-0 text-secondary">Road 17, 10785 Berlin, Germany</p>
+                        <p class="mb-0 fw-bold">{{appointment.property.name}}</p>
+                        <p class="mb-0 text-secondary">Road {{appointment.property.address.houseNumber}},
+                            {{appointment.property.address.zipCode}} {{appointment.property.address.city}},
+                            {{appointment.property.address.country}}</p>
                     </div>
                 </div>
                 <div class="col-6 d-flex align-items-center">
                     <div class="small-img shadow-sm">
-                        <img src="https://cf.bstatic.com/xdata/images/hotel/270x200/207121485.webp?k=5553c15c6e8205c912ed3a5a87a4403bbe8436cf926c3e9ec2a2aa67e29f3a44&o="
-                            alt="small-img">
+                        <img src="../../../assets/no-user.png" alt="small-img">
                     </div>
                     <div class="mx-3">
-                        <p class="mb-0 fw-bold">Great apartman in east Berlin</p>
-                        <p class="mb-0 text-secondary">Road 17, 10785 Berlin, Germany</p>
+                        <p class="mb-0 fw-bold">{{appointment.property.user.profile.firstname}}
+                            {{appointment.property.user.profile.name}}</p>
+                        <p class="mb-0 text-secondary">{{appointment.property.user.usertype}}</p>
                     </div>
                 </div>
             </div>
 
+            <!-- I think this was data from attachments array, I got it empty so I will leave it like this with fixed data, so you can see how it looks -->
             <div class="my-3">
 
-                <div class="p-3 border border-bottom-0 d-flex justify-content-between align-items-center">
+                <div class="p-3 border d-flex justify-content-between align-items-center">
                     <div class="d-flex">
                         <span class="d-flex align-items-center mx-2">
                             <mat-icon class="text-primary me-1 fs-5">calendar_today</mat-icon> 10 OCTOBER 2017
@@ -49,20 +65,6 @@
                     </span>
                     <mat-icon class="text-secondary" role="button">more_vert</mat-icon>
                 </div>
-                <div class="p-3 border d-flex justify-content-between align-items-center">
-                    <div class="d-flex">
-                        <span class="d-flex align-items-center mx-2">
-                            <mat-icon class="text-primary me-1">calendar_today</mat-icon> 10 OCTOBER 2017
-                        </span>
-                        <span class="d-flex align-items-center mx-2">
-                            <mat-icon class="text-primary me-1">access_time</mat-icon> 14:00
-                        </span>
-                    </div>
-                    <span class="d-flex align-items-center my-1">
-                        <mat-icon class="text-primary me-1">person_outline</mat-icon> 6 | 8
-                    </span>
-                    <mat-icon class="text-secondary" role="button">more_vert</mat-icon>
-                </div>
 
             </div>
 
@@ -73,138 +75,5 @@
             </div>
         </div>
 
-        <div class="bg-white border p-3 mb-3 rounded-1">
-            <div class="row">
-                <div class="col-6 d-flex align-items-center">
-                    <div class="small-img shadow-sm">
-                        <img src="https://cf.bstatic.com/xdata/images/hotel/270x200/207121485.webp?k=5553c15c6e8205c912ed3a5a87a4403bbe8436cf926c3e9ec2a2aa67e29f3a44&o="
-                            alt="small-img">
-                    </div>
-                    <div class="mx-3">
-                        <p class="mb-0 fw-bold">Great apartman in east Berlin</p>
-                        <p class="mb-0 text-secondary">Road 17, 10785 Berlin, Germany</p>
-                    </div>
-                </div>
-                <div class="col-6 d-flex align-items-center">
-                    <div class="small-img shadow-sm">
-                        <img src="https://cf.bstatic.com/xdata/images/hotel/270x200/207121485.webp?k=5553c15c6e8205c912ed3a5a87a4403bbe8436cf926c3e9ec2a2aa67e29f3a44&o="
-                            alt="small-img">
-                    </div>
-                    <div class="mx-3">
-                        <p class="mb-0 fw-bold">Great apartman in east Berlin</p>
-                        <p class="mb-0 text-secondary">Road 17, 10785 Berlin, Germany</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="my-3">
-
-                <div class="p-3 border border-bottom-0 d-flex justify-content-between align-items-center">
-                    <div class="d-flex">
-                        <span class="d-flex align-items-center mx-2">
-                            <mat-icon class="text-primary me-1">calendar_today</mat-icon> 10 OCTOBER 2017
-                        </span>
-                        <span class="d-flex align-items-center mx-2">
-                            <mat-icon class="text-primary me-1">access_time</mat-icon> 14:00
-                        </span>
-                    </div>
-                    <span class="d-flex align-items-center my-1">
-                        <mat-icon class="text-primary me-1">person_outline</mat-icon> 6 | 8
-                    </span>
-                    <mat-icon class="text-secondary">more_vert</mat-icon>
-                </div>
-                <div class="p-3 border d-flex justify-content-between align-items-center">
-                    <div class="d-flex">
-                        <span class="d-flex align-items-center mx-2">
-                            <mat-icon class="text-primary me-1">calendar_today</mat-icon> 10 OCTOBER 2017
-                        </span>
-                        <span class="d-flex align-items-center mx-2">
-                            <mat-icon class="text-primary me-1">access_time</mat-icon> 14:00
-                        </span>
-                    </div>
-                    <span class="d-flex align-items-center my-1">
-                        <mat-icon class="text-primary me-1">person_outline</mat-icon> 6 | 8
-                    </span>
-                    <mat-icon class="text-secondary">more_vert</mat-icon>
-                </div>
-
-            </div>
-
-            <!-- Create btn -->
-            <div class="p-3 border d-flex justify-content-center align-items-center text-warning rounded-1"
-                role="button">
-                <mat-icon>add_circle</mat-icon>
-                <span class="mx-1">Create Viewing</span>
-            </div>
-        </div>
-
-        <div class="bg-white border p-3 mb-3 rounded-1">
-            <div class="row">
-                <div class="col-6 d-flex align-items-center">
-                    <div class="small-img shadow-sm">
-                        <img src="https://cf.bstatic.com/xdata/images/hotel/270x200/207121485.webp?k=5553c15c6e8205c912ed3a5a87a4403bbe8436cf926c3e9ec2a2aa67e29f3a44&o="
-                            alt="small-img">
-                    </div>
-                    <div class="mx-3">
-                        <p class="mb-0 fw-bold">Great apartman in east Berlin</p>
-                        <p class="mb-0 text-secondary">Road 17, 10785 Berlin, Germany</p>
-                    </div>
-                </div>
-                <div class="col-6 d-flex align-items-center">
-                    <div class="small-img shadow-sm">
-                        <img src="https://cf.bstatic.com/xdata/images/hotel/270x200/207121485.webp?k=5553c15c6e8205c912ed3a5a87a4403bbe8436cf926c3e9ec2a2aa67e29f3a44&o="
-                            alt="small-img">
-                    </div>
-                    <div class="mx-3">
-                        <p class="mb-0 fw-bold">Great apartman in east Berlin</p>
-                        <p class="mb-0 text-secondary">Road 17, 10785 Berlin, Germany</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="my-3">
-
-                <div class="p-3 border border-bottom-0 d-flex justify-content-between align-items-center">
-                    <div class="d-flex">
-                        <span class="d-flex align-items-center mx-2">
-                            <mat-icon class="text-primary me-1">calendar_today</mat-icon> 10 OCTOBER 2017
-                        </span>
-                        <span class="d-flex align-items-center mx-2">
-                            <mat-icon class="text-primary me-1">access_time</mat-icon> 14:00
-                        </span>
-                    </div>
-                    <span class="d-flex align-items-center my-1">
-                        <mat-icon class="text-primary me-1">person_outline</mat-icon> 6 | 8
-                    </span>
-                    <mat-icon class="text-secondary">more_vert</mat-icon>
-                </div>
-                <div class="p-3 border d-flex justify-content-between align-items-center">
-                    <div class="d-flex">
-                        <span class="d-flex align-items-center mx-2">
-                            <mat-icon class="text-primary me-1">calendar_today</mat-icon> 10 OCTOBER 2017
-                        </span>
-                        <span class="d-flex align-items-center mx-2">
-                            <mat-icon class="text-primary me-1">access_time</mat-icon> 14:00
-                        </span>
-                    </div>
-                    <span class="d-flex align-items-center my-1">
-                        <mat-icon class="text-primary me-1">person_outline</mat-icon> 6 | 8
-                    </span>
-                    <mat-icon class="text-secondary">more_vert</mat-icon>
-                </div>
-
-            </div>
-
-            <!-- Create btn -->
-            <div class="p-3 border d-flex justify-content-center align-items-center text-warning rounded-1"
-                role="button">
-                <mat-icon>add_circle</mat-icon>
-                <span class="mx-1">Create Viewing</span>
-            </div>
-        </div>
-
-        <div>
-
-        </div>
     </div>
 </div>

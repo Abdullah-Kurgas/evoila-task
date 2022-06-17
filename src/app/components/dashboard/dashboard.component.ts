@@ -22,8 +22,6 @@ export class DashboardComponent implements OnInit {
   constructor(private http: HttpClient, private modal: MatDialog) { }
 
   ngOnInit(): void {
-    // console.log(new Date('2019-03-09T11:00:00.000+0000'));
-
     this.http.get('./assets/data.json').subscribe((res: any) => {
       this.appointments = res.data.appointments.nodes;
     });
@@ -43,9 +41,16 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  showAppointment(appointment: any) {
+  showAppointment(appointments: any, hour: any, week: any) {
+    let filteredAppointments: any[] = [];
+    appointments.forEach((appointment: any) => {
+      if (this.checkAppointments(appointment, hour, week, 'day')) {
+        filteredAppointments.push(appointment);
+      }
+    });
+
     this.modal.open(ModalComponent, {
-      data: appointment
+      data: filteredAppointments
     });
   }
 
@@ -64,12 +69,20 @@ export class DashboardComponent implements OnInit {
       new Date(this.selected.getFullYear(), this.selected.getMonth() - month, 31).getDate();
   }
 
-  checkAppointments(appointment: any, hour: any, week: any): boolean {
+  checkAppointments(appointment: any, hour: any, week: any, type: string): boolean {
     let appointmentDate = new Date(appointment.date)
 
-    if (appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
-      this.selected.toDateString() == appointmentDate.toDateString() &&
-      hour == appointmentDate.getHours()) return true;
+    if (type == 'week') {
+      if (
+        appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
+        this.selected.toDateString() == appointmentDate.toDateString() &&
+        hour == appointmentDate.getHours()) return true;
+    } else {
+      if (
+        appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
+        appointmentDate.getDay() == this.selected.getDay() &&
+        appointmentDate.getFullYear() === this.selected.getFullYear()) return true
+    }
 
     return false;
   }

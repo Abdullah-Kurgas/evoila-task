@@ -62,11 +62,11 @@
 
                                 <!-- Item -->
                                 <div class="item p-0" [class]="" *ngIf="week.id && hour.toString() != 'false'">
-                                    <div class="p-0" [class]="checkAppointments(appointment, hour, week) ? 'h-100':''"
+                                    <div class="p-0" [class]="checkAppointments(appointment, hour, week, 'week') ? 'h-100':''"
                                         *ngFor="let appointment of appointments">
                                         <div class="bg-success h-100 p-2" role="button"
-                                            *ngIf="checkAppointments(appointment, hour, week)"
-                                            (click)="showAppointment(appointment)">
+                                            *ngIf="checkAppointments(appointment, hour, week, 'week')"
+                                            (click)="showAppointment(appointments, hour, week)">
                                             <span>1 VIEWINGS</span>
                                         </div>
                                     </div>
