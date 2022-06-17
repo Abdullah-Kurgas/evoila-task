@@ -1,6 +1,6 @@
 <div class="row m-0 pt-5 px-3 dashboard">
     <div class="col-2 px-0">
-        <div class="border border-bottom-0 bg-white h-50">
+        <div class="border bg-white h-50">
             <mat-calendar [(selected)]="selected" (selectedChange)="calendarChange($event)"></mat-calendar>
         </div>
 
@@ -62,9 +62,9 @@
                         <!-- Header -->
                         <div class="head-item" *ngIf="!week.id && hour.toString() == 'false'"></div>
                         <div class="head-item" *ngIf="week.id && hour.toString() == 'false'">
-                            {{getDaysInWeek(i-1) <= 0 ? (getLastDayInMonth(1) + getDaysInWeek(i-1)) : getLastDayInMonth(0)
-                                < getDaysInWeek(i-1) ? (getDaysInWeek(i-1) - getLastDayInMonth(0)) : getDaysInWeek(i-1)
-                                }} {{week.name.substring(0,3).toLocaleUpperCase()}} </div>
+                            {{getDaysInWeek(i-1) <= 0 ? (getLastDayInMonth(1) + getDaysInWeek(i-1)) :
+                                getLastDayInMonth(0) < getDaysInWeek(i-1) ? (getDaysInWeek(i-1) - getLastDayInMonth(0))
+                                : getDaysInWeek(i-1) }} {{week.name.substring(0,3).toLocaleUpperCase()}} </div>
 
                                 <!-- Hour side -->
                                 <div class="hour-item item" *ngIf="!week.id && hour.toString() != 'false'">
@@ -75,10 +75,14 @@
                                     <div class="p-0"
                                         [class]="checkAppointments(appointment, hour, week, 'week') ? 'h-100':''"
                                         *ngFor="let appointment of appointments">
-                                        <div class="bg-success h-100 p-2" role="button"
-                                            *ngIf="checkAppointments(appointment, hour, week, 'week')"
+                                        <div class="h-100 p-2"
+                                            [class]="todaysDay.getDate() > utils.getDateObj(appointment.date).getDate() ||
+                                             todaysDay.getMonth() > utils.getDateObj(appointment.date).getMonth() ? 'bg-light':'bg-dark'"
+                                            role="button" *ngIf="checkAppointments(appointment, hour, week, 'week')"
                                             (click)="showAppointmentModal(appointments, appointment.id, hour, week)">
-                                            <span>1 VIEWINGS</span>
+                                            <span>{{appointment.property.attachments.length}}
+                                                {{appointment.property.attachments.length !== 1 ?
+                                                'VIEWINGS':'VIEWING'}}</span>
                                         </div>
                                     </div>
                                 </div>

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { MatCalendar } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { Utils } from 'src/app/shared/Utils';
 import { ModalComponent } from '../modal/modal.component';
@@ -15,6 +14,7 @@ export class DashboardComponent implements OnInit {
   utils = Utils;
 
   selected: Date = new Date();
+  todaysDay: Date = new Date();
   time = [false, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7];
 
   appointments!: any[];
