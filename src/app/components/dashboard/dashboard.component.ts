@@ -4,22 +4,21 @@ import { MatDialog } from '@angular/material/dialog';
 import { Utils } from 'src/app/shared/Utils';
 import { ModalComponent } from '../modal/modal.component';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   utils = Utils;
 
   selected: Date = new Date();
   todaysDay: Date = new Date();
-  time = [false, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7];
+  time = [false, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
   appointments!: any[];
 
-  constructor(private http: HttpClient, private modal: MatDialog) { }
+  constructor(private http: HttpClient, private modal: MatDialog) {}
 
   ngOnInit(): void {
     this.http.get('./assets/data.json').subscribe((res: any) => {
@@ -27,28 +26,35 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // Big calendar arrows func 
+  // Big calendar arrows func
   changeWeek(type: string): void {
-    if (type == 'next')
-      this.selected.setDate(this.selected.getDate() + 7);
-    else
-      this.selected.setDate(this.selected.getDate() - 7);
+    if (type == 'next') this.selected.setDate(this.selected.getDate() + 7);
+    else this.selected.setDate(this.selected.getDate() - 7);
 
     this.selected = new Date(this.selected);
   }
 
   // Small calendar event emitter
   calendarChange(date: string): void {
-    let dateChanged = date.toString().replace('00:00:00', this.utils.generateTime(new Date().getHours(), 2).toString());
-    this.selected = new Date(dateChanged)
+    let dateChanged = date
+      .toString()
+      .replace(
+        '00:00:00',
+        this.utils.generateTime(new Date().getHours(), 2).toString()
+      );
+    this.selected = new Date(dateChanged);
   }
 
-
   // Appointment click func
-  showAppointmentModal(appointments: any, id: string, hour: any, week: any): void {
+  showAppointmentModal(
+    appointments: any,
+    id: string,
+    hour: any,
+    week: any
+  ): void {
     let filteredAppointments: any[] = [];
 
-    appointments.forEach((appointment: any,) => {
+    appointments.forEach((appointment: any) => {
       if (this.checkAppointments(appointment, hour, week, 'day')) {
         filteredAppointments.push(appointment);
       }
@@ -57,59 +63,100 @@ export class DashboardComponent implements OnInit {
     this.modal.open(ModalComponent, {
       data: {
         appointments: filteredAppointments.sort((a, b) => {
-          if (this.utils.getDateObj(a.date).getHours() < this.utils.getDateObj(b.date).getHours()) return -1
-          if (this.utils.getDateObj(a.date).getHours() > this.utils.getDateObj(b.date).getHours()) return 1
-          return 0
+          if (
+            this.utils.getDateObj(a.date).getHours() <
+            this.utils.getDateObj(b.date).getHours()
+          )
+            return -1;
+          if (
+            this.utils.getDateObj(a.date).getHours() >
+            this.utils.getDateObj(b.date).getHours()
+          )
+            return 1;
+          return 0;
         }),
-        appointmentId: id
-      }
+        appointmentId: id,
+      },
     });
   }
 
-  // Func for showing days in big calendar 
-  getDaysInWeek(id: number): number {
+  // Func for showing days in big calendar
+  generateDayInWeek(id: number): number {
     let day = this.selected.getDate();
     let weekDay = this.selected.getDay();
 
     return day - (weekDay - id);
   }
 
+  showDayOfWeek(day: number) {
+    return this.generateDayInWeek(day) <= 0
+      ? this.getLastDayInMonth(1) + this.generateDayInWeek(day)
+      : this.getLastDayInMonth(0) < this.generateDayInWeek(day)
+      ? this.generateDayInWeek(day) - this.getLastDayInMonth(0)
+      : this.generateDayInWeek(day);
+  }
+
   // Func for getting last day in previous month
   getLastDayInMonth(month: number): number {
-    return new Date(this.selected.getFullYear(), this.selected.getMonth() - month, 31).getDate() < 31
-      ?
-      31 - new Date(this.selected.getFullYear(), this.selected.getMonth() - month, 31).getDate()
-      :
-      new Date(this.selected.getFullYear(), this.selected.getMonth() - month, 31).getDate();
+    return new Date(
+      this.selected.getFullYear(),
+      this.selected.getMonth() - month,
+      31
+    ).getDate() < 31
+      ? 31 -
+          new Date(
+            this.selected.getFullYear(),
+            this.selected.getMonth() - month,
+            31
+          ).getDate()
+      : new Date(
+          this.selected.getFullYear(),
+          this.selected.getMonth() - month,
+          31
+        ).getDate();
   }
 
   // Func for putting every appointment in it's correct position
-  checkAppointments(appointment: any, hour: any, week: any, type: string): boolean {
+  checkAppointments(
+    appointment: any,
+    hour: any,
+    week: any,
+    type: string
+  ): boolean {
     let appointmentDate: Date = new Date(appointment.date);
-    let firstDayInWeek: number = this.getDaysInWeek(0) <= 0 ? this.getLastDayInMonth(1) + this.getDaysInWeek(0) : this.getDaysInWeek(0);
-    let lastDayInWeek: number = this.getLastDayInMonth(0) < this.getDaysInWeek(6) ? this.getDaysInWeek(6) - this.getLastDayInMonth(0) : this.getDaysInWeek(6);
+    let firstDayInWeek: number =
+      this.generateDayInWeek(0) <= 0
+        ? this.getLastDayInMonth(1) + this.generateDayInWeek(0)
+        : this.generateDayInWeek(0);
+    let lastDayInWeek: number =
+      this.getLastDayInMonth(0) < this.generateDayInWeek(6)
+        ? this.generateDayInWeek(6) - this.getLastDayInMonth(0)
+        : this.generateDayInWeek(6);
 
     if (type == 'week') {
       if (
         appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
-        appointmentDate.getDate() >= firstDayInWeek && appointmentDate.getDate() <= lastDayInWeek &&
+        appointmentDate.getDate() >= firstDayInWeek &&
+        appointmentDate.getDate() <= lastDayInWeek &&
         appointmentDate.getFullYear() === this.selected.getFullYear() &&
         hour == appointmentDate.getHours()
-      ) return true;
-
+      )
+        return true;
     } else if (type == 'day') {
       if (
         appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
-        appointmentDate.getDate() > firstDayInWeek && appointmentDate.getDate() < lastDayInWeek &&
+        appointmentDate.getDate() > firstDayInWeek &&
+        appointmentDate.getDate() < lastDayInWeek &&
         appointmentDate.getFullYear() === this.selected.getFullYear()
-      ) return true
-
+      )
+        return true;
     } else if (type == 'next') {
       if (
         this.selected.getHours() < appointmentDate.getHours() &&
         appointmentDate.getFullYear() == this.selected.getFullYear() &&
         appointmentDate.getDate() == this.selected.getDate()
-      ) return true;
+      )
+        return true;
     }
 
     return false;

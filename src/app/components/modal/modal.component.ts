@@ -5,10 +5,9 @@ import { Utils } from 'src/app/shared/Utils';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-
   utils = Utils;
 
   appointment: any;
@@ -16,7 +15,8 @@ export class ModalComponent implements OnInit {
 
   constructor(
     public modal: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,) { }
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
   ngOnInit(): void {
     this.data.appointments.forEach((el: any, i: number) => {
@@ -34,5 +34,4 @@ export class ModalComponent implements OnInit {
     }
     this.appointment = this.data.appointments[this.itemNumber];
   }
-
 }

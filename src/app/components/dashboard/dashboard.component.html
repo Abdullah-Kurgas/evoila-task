@@ -1,93 +1,165 @@
 <div class="row m-0 pt-5 px-3 dashboard">
-    <div class="col-2 px-0">
-        <div class="border bg-white h-50">
-            <mat-calendar [(selected)]="selected" (selectedChange)="calendarChange($event)"></mat-calendar>
-        </div>
+  <div class="col-2 px-0">
+    <div class="border bg-white h-50">
+      <mat-calendar
+        [(selected)]="selected"
+        (selectedChange)="calendarChange($event)"
+      ></mat-calendar>
+    </div>
 
-        <div [class]="checkAppointments(appointment, null, null, 'next') ? 'h-50' : ''"
-            *ngFor="let appointment of appointments">
-            <div class="border bg-white p-3 h-100" *ngIf="checkAppointments(appointment, null, null, 'next')">
-                <h4 class="text-secondary">NEXT VIEWING</h4>
-                <div class="image">
-                    <img src="../../../assets/no-thumbnail.jpg" alt="image">
-                </div>
-                <div class="mt-3">
-                    <p class="mb-0 fw-bold">{{appointment.property.name}}</p>
-                    <p class="mb-0 text-secondary">Road {{appointment.property.address.houseNumber}},
-                        {{appointment.property.address.zipCode}} {{appointment.property.address.city}},
-                        {{appointment.property.address.country}}</p>
-                </div>
-                <div class="row text-secondary mt-3">
-                    <span class="col-7 d-flex align-items-center my-1">
-                        <mat-icon>calendar_today</mat-icon> {{utils.getDateObj(appointment.date).toDateString()}}
-                    </span>
-                    <span class="col-5 d-flex align-items-center my-1">
-                        <mat-icon>access_time</mat-icon>
-                        {{ utils.generateTime(utils.getDateObj(appointment.date).getHours(), 1) }}
-                    </span>
-                    <span class="col-6 d-flex align-items-center my-1">
-                        <mat-icon>person_outline</mat-icon>{{appointment.attendeeCount}} |
-                        {{appointment.maxInviteeCount}}
-                    </span>
-                </div>
+    <div
+      [class]="checkAppointments(appointment, null, null, 'next') ? 'h-50' : ''"
+      *ngFor="let appointment of appointments"
+    >
+      <div
+        class="border bg-white p-3 h-100"
+        *ngIf="checkAppointments(appointment, null, null, 'next')"
+      >
+        <h4 class="text-secondary">NEXT VIEWING</h4>
+        <div class="image">
+          <img src="../../../assets/no-thumbnail.jpg" alt="image" />
+        </div>
+        <div class="mt-3">
+          <p class="mb-0 fw-bold">{{ appointment.property.name }}</p>
+          <p class="mb-0 text-secondary">
+            Road {{ appointment.property.address.houseNumber }},
+            {{ appointment.property.address.zipCode }}
+            {{ appointment.property.address.city }},
+            {{ appointment.property.address.country }}
+          </p>
+        </div>
+        <div class="row text-secondary mt-3">
+          <span class="col-7 d-flex align-items-center my-1">
+            <mat-icon class="fs-5">calendar_today</mat-icon>
+            {{ utils.getDateObj(appointment.date).toDateString() }}
+          </span>
+          <span class="col-5 d-flex align-items-center my-1">
+            <mat-icon class="fs-5">access_time</mat-icon>
+            {{
+              utils.generateTime(
+                utils.getDateObj(appointment.date).getHours(),
+                1
+              )
+            }}
+          </span>
+          <span class="col-6 d-flex align-items-center my-1">
+            <mat-icon class="fs-5">person_outline</mat-icon
+            >{{ appointment.attendeeCount }} |
+            {{ appointment.maxInviteeCount }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-10 h-100 px-0">
+    <div
+      class="d-flex justify-content-between align-items-center p-2 border bg-white"
+    >
+      <h3 class="m-0">
+        {{ showDayOfWeek(0) }} -
+        {{
+          getLastDayInMonth(0) < generateDayInWeek(6)
+            ? generateDayInWeek(6) - getLastDayInMonth(0)
+            : generateDayInWeek(6)
+        }}
+        {{ utils.getMonthsData()[selected.getMonth()].name }}
+        {{ selected.getFullYear() }}
+      </h3>
+      <div class="d-flex align-items-center">
+        <button mat-icon-button (click)="changeWeek('prev')">
+          <mat-icon mat-icon-button>keyboard_arrow_left</mat-icon>
+        </button>
+        <button mat-icon-button (click)="changeWeek('next')">
+          <mat-icon mat-icon-button>keyboard_arrow_right</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="table mb-0">
+      <table class="table d-flex bg-white mb-0">
+        <div
+          class="t-item"
+          [style.width]="!week.id ? '6rem' : '14rem'"
+          *ngFor="let week of utils.getWeekData(); let i = index"
+        >
+          <div class="p-0" *ngFor="let hour of time">
+            <!-- Header -->
+            <div
+              class="head-item"
+              *ngIf="!week.id && hour.toString() == 'false'"
+            ></div>
+            <div
+              class="head-item"
+              [class]="
+                todaysDay.getDate() == showDayOfWeek(i - 1)
+                  ? 'badge bg-primary'
+                  : ''
+              "
+              *ngIf="week.id && hour.toString() == 'false'"
+            >
+              {{ showDayOfWeek(i - 1) }}
+              {{ week.name.substring(0, 3).toLocaleUpperCase() }}
             </div>
+
+            <!-- Hour side -->
+            <div
+              class="hour-item item"
+              *ngIf="!week.id && hour.toString() != 'false'"
+            >
+              {{ utils.generateTime(+hour, 1) }}
+            </div>
+
+            <!-- Item -->
+            <div
+              class="item p-0"
+              [class]=""
+              *ngIf="week.id && hour.toString() != 'false'"
+            >
+              <div
+                class="p-0"
+                [class]="
+                  checkAppointments(appointment, hour, week, 'week')
+                    ? 'h-100'
+                    : ''
+                "
+                *ngFor="let appointment of appointments"
+              >
+                <div
+                  class="h-100 p-2 fw-bold"
+                  [class]="
+                    todaysDay.getDate() >
+                      utils.getDateObj(appointment.date).getDate() ||
+                    todaysDay.getMonth() >
+                      utils.getDateObj(appointment.date).getMonth()
+                      ? 'bg-light'
+                      : 'bg-dark text-light'
+                  "
+                  role="button"
+                  *ngIf="checkAppointments(appointment, hour, week, 'week')"
+                  (click)="
+                    showAppointmentModal(
+                      appointments,
+                      appointment.id,
+                      hour,
+                      week
+                    )
+                  "
+                >
+                  <span
+                    >{{ appointment.property.attachments.length }}
+                    {{
+                      appointment.property.attachments.length !== 1
+                        ? "VIEWINGS"
+                        : "VIEWING"
+                    }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </table>
     </div>
-
-    <div class="col-10 h-100 px-0">
-
-        <div class="d-flex justify-content-between align-items-center p-2 border bg-white">
-            <h3 class="m-0">{{ getDaysInWeek(0) <= 0 ? getLastDayInMonth(1) + getDaysInWeek(0) : getDaysInWeek(0) }} -
-                    {{ getLastDayInMonth(0) < getDaysInWeek(6) ? getDaysInWeek(6) - getLastDayInMonth(0) :
-                    getDaysInWeek(6) }} {{utils.getMonthsData()[selected.getMonth()].name}}
-                    {{selected.getFullYear()}}</h3>
-                    <div class="d-flex align-items-center">
-                        <button mat-icon-button (click)="changeWeek('prev')">
-                            <mat-icon mat-icon-button>keyboard_arrow_left</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="changeWeek('next')">
-                            <mat-icon mat-icon-button>keyboard_arrow_right</mat-icon>
-                        </button>
-                    </div>
-        </div>
-
-        <div class="table mb-0">
-            <table class="table d-flex bg-white mb-0">
-                <div class="t-item" [style.width]="!week.id ? '6rem' : '14rem'"
-                    *ngFor="let week of utils.getWeekData(); let i = index">
-                    <div class="p-0" *ngFor="let hour of time">
-
-                        <!-- Header -->
-                        <div class="head-item" *ngIf="!week.id && hour.toString() == 'false'"></div>
-                        <div class="head-item" *ngIf="week.id && hour.toString() == 'false'">
-                            {{getDaysInWeek(i-1) <= 0 ? (getLastDayInMonth(1) + getDaysInWeek(i-1)) :
-                                getLastDayInMonth(0) < getDaysInWeek(i-1) ? (getDaysInWeek(i-1) - getLastDayInMonth(0))
-                                : getDaysInWeek(i-1) }} {{week.name.substring(0,3).toLocaleUpperCase()}} </div>
-
-                                <!-- Hour side -->
-                                <div class="hour-item item" *ngIf="!week.id && hour.toString() != 'false'">
-                                    {{utils.generateTime(+hour, 1)}}</div>
-
-                                <!-- Item -->
-                                <div class="item p-0" [class]="" *ngIf="week.id && hour.toString() != 'false'">
-                                    <div class="p-0"
-                                        [class]="checkAppointments(appointment, hour, week, 'week') ? 'h-100':''"
-                                        *ngFor="let appointment of appointments">
-                                        <div class="h-100 p-2 fw-bold"
-                                            [class]="todaysDay.getDate() > utils.getDateObj(appointment.date).getDate() ||
-                                             todaysDay.getMonth() > utils.getDateObj(appointment.date).getMonth() ? 'bg-light':'bg-dark text-light'"
-                                            role="button" *ngIf="checkAppointments(appointment, hour, week, 'week')"
-                                            (click)="showAppointmentModal(appointments, appointment.id, hour, week)">
-                                            <span>{{appointment.property.attachments.length}}
-                                                {{appointment.property.attachments.length !== 1 ?
-                                                'VIEWINGS':'VIEWING'}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-
-                    </div>
-            </table>
-        </div>
-    </div>
+  </div>
 </div>
