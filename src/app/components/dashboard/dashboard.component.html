@@ -108,6 +108,25 @@
               *ngIf="!week.id && hour.toString() != 'false'"
             >
               {{ utils.generateTime(+hour, 1) }}
+
+              <!-- Hour tracker -->
+              <div
+                class="hour-tracker badge bg-primary p-2"
+                [style]="'top:' + todaysDay.getMinutes() * (100 / 60) + '%'"
+                *ngIf="
+                  !week.id &&
+                  hour.toString() != 'false' &&
+                  todaysDay.getHours() == hour
+                "
+              >
+                {{
+                  utils.generateTime(
+                    todaysDay.getHours(),
+                    1,
+                    todaysDay.getMinutes()
+                  )
+                }}
+              </div>
             </div>
 
             <!-- Item -->

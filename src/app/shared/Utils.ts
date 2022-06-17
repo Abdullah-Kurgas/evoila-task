@@ -36,8 +36,12 @@ export class Utils {
         return new Date(date);
     }
 
-    static generateTime(number: number, zeroLength: number): number | string {
-        let zeros = zeroLength == 1 ? ':00' : ':00:00';
-        return (number.toString().length < 2 ? '0' + number : number) + zeros;
+    static generateTime(hour: number, zeroLength: number, minute?: number, second?: number,): number | string {
+        let h = (hour.toString().length < 2 ? '0' + hour : hour);
+        let m = minute ? (minute.toString().length < 2 ? '0' + minute : minute) : '00';
+        let s = second ? (second.toString().length < 2 ? '0' + second : second) : '00';
+
+
+        return (h.toString() + ':' + (zeroLength == 1 ? m : (':' + m.toString() + s)));
     }
 }
