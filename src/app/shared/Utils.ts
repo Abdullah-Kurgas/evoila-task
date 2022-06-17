@@ -35,4 +35,9 @@ export class Utils {
     static getDateObj(date: string): Date {
         return new Date(date);
     }
+
+    static generateTime(number: number, zeroLength: number): number | string {
+        let zeros = zeroLength == 1 ? ':00' : ':00:00';
+        return (number.toString().length < 2 ? '0' + number : number) + zeros;
+    }
 }

@@ -23,9 +23,7 @@
                     </span>
                     <span class="col-5 d-flex align-items-center my-1">
                         <mat-icon>access_time</mat-icon>
-                        {{utils.getDateObj(appointment.date).getHours().toString().length > 1 ?
-                        utils.getDateObj(appointment.date).getHours() :
-                        '0'+utils.getDateObj(appointment.date).getHours()}}:00
+                        {{ utils.generateTime(utils.getDateObj(appointment.date).getHours(), 1) }}
                     </span>
                     <span class="col-6 d-flex align-items-center my-1">
                         <mat-icon>person_outline</mat-icon>{{appointment.attendeeCount}} |
@@ -68,7 +66,7 @@
 
                                 <!-- Hour side -->
                                 <div class="hour-item item" *ngIf="!week.id && hour.toString() != 'false'">
-                                    {{hour.toString().length == 1 ? '0'+ hour : hour}}:00</div>
+                                    {{utils.generateTime(+hour, 1)}}</div>
 
                                 <!-- Item -->
                                 <div class="item p-0" [class]="" *ngIf="week.id && hour.toString() != 'false'">

@@ -39,11 +39,10 @@ export class DashboardComponent implements OnInit {
 
   // Small calendar event emitter
   calendarChange(date: string) {
-    let dateChanged = date.toString().replace('00:00:00', new Date().getHours().toString() + ':00:00');
+    let dateChanged = date.toString().replace('00:00:00', this.utils.generateTime(new Date().getHours(), 2).toString());
     this.selected = new Date(dateChanged)
-    console.log(this.selected);
-
   }
+
 
   // Appointment click func
   showAppointmentModal(appointments: any, id: string, hour: any, week: any) {
@@ -88,14 +87,13 @@ export class DashboardComponent implements OnInit {
   checkAppointments(appointment: any, hour: any, week: any, type: string): boolean {
     let appointmentDate: Date = new Date(appointment.date);
     let firstDayInWeek: number = this.getDaysInWeek(0) <= 0 ? this.getLastDayInMonth(1) + this.getDaysInWeek(0) : this.getDaysInWeek(0);
-    let lastDayInWeek: number =  this.getLastDayInMonth(0) < this.getDaysInWeek(6) ? this.getDaysInWeek(6) - this.getLastDayInMonth(0) : this.getDaysInWeek(6);
+    let lastDayInWeek: number = this.getLastDayInMonth(0) < this.getDaysInWeek(6) ? this.getDaysInWeek(6) - this.getLastDayInMonth(0) : this.getDaysInWeek(6);
 
     if (type == 'week') {
       if (
         appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
         appointmentDate.getDate() >= firstDayInWeek && appointmentDate.getDate() <= lastDayInWeek &&
         appointmentDate.getFullYear() === this.selected.getFullYear() &&
-        // appointmentDate.getMonth() === this.selected.getMonth() &&
         hour == appointmentDate.getHours()
       ) return true;
 
