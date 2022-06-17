@@ -3,3 +3,25 @@
         padding: 0;
     }
 }
+.apointment-modal{
+    min-width: 30rem;
+
+    .apointment-modal-data{
+        max-height: 90vh;
+        overflow: auto;
+
+        .small-img{
+            width: 4rem;
+    
+            img{
+                width: 100%;
+                border-radius: 2px;
+            }
+        }
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+}
