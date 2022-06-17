@@ -41,6 +41,8 @@ export class DashboardComponent implements OnInit {
   calendarChange(date: string) {
     let dateChanged = date.toString().replace('00:00:00', new Date().getHours().toString() + ':00:00');
     this.selected = new Date(dateChanged)
+    console.log(this.selected);
+
   }
 
   // Appointment click func
@@ -84,18 +86,26 @@ export class DashboardComponent implements OnInit {
 
   // Func for putting every appointment in it's correct position
   checkAppointments(appointment: any, hour: any, week: any, type: string): boolean {
-    let appointmentDate = new Date(appointment.date)
+    let appointmentDate: Date = new Date(appointment.date);
+    let firstDayInWeek: number = this.getDaysInWeek(0) <= 0 ? this.getLastDayInMonth(1) + this.getDaysInWeek(0) : this.getDaysInWeek(0);
+    let lastDayInWeek: number =  this.getLastDayInMonth(0) < this.getDaysInWeek(6) ? this.getDaysInWeek(6) - this.getLastDayInMonth(0) : this.getDaysInWeek(6);
 
     if (type == 'week') {
       if (
         appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
-        this.selected.toDateString() == appointmentDate.toDateString() &&
-        hour == appointmentDate.getHours()) return true;
+        appointmentDate.getDate() >= firstDayInWeek && appointmentDate.getDate() <= lastDayInWeek &&
+        appointmentDate.getFullYear() === this.selected.getFullYear() &&
+        // appointmentDate.getMonth() === this.selected.getMonth() &&
+        hour == appointmentDate.getHours()
+      ) return true;
+
     } else if (type == 'day') {
       if (
         appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
-        appointmentDate.getDay() == this.selected.getDay() &&
-        appointmentDate.getFullYear() === this.selected.getFullYear()) return true
+        appointmentDate.getDate() > firstDayInWeek && appointmentDate.getDate() < lastDayInWeek &&
+        appointmentDate.getFullYear() === this.selected.getFullYear()
+      ) return true
+
     } else if (type == 'next') {
       if (
         this.selected.getHours() < appointmentDate.getHours() &&

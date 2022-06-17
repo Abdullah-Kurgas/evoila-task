@@ -19,6 +19,8 @@ export class ModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,) { }
 
   ngOnInit(): void {
+    console.log(this.data);
+    
     this.data.appointments.forEach((el: any, i: number) => {
       if (el.id == this.data.appointmentId) this.itemNumber = i;
     });

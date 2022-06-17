@@ -75,9 +75,9 @@
                                     <div class="p-0"
                                         [class]="checkAppointments(appointment, hour, week, 'week') ? 'h-100':''"
                                         *ngFor="let appointment of appointments">
-                                        <div class="h-100 p-2"
+                                        <div class="h-100 p-2 fw-bold"
                                             [class]="todaysDay.getDate() > utils.getDateObj(appointment.date).getDate() ||
-                                             todaysDay.getMonth() > utils.getDateObj(appointment.date).getMonth() ? 'bg-light':'bg-dark'"
+                                             todaysDay.getMonth() > utils.getDateObj(appointment.date).getMonth() ? 'bg-light':'bg-dark text-light'"
                                             role="button" *ngIf="checkAppointments(appointment, hour, week, 'week')"
                                             (click)="showAppointmentModal(appointments, appointment.id, hour, week)">
                                             <span>{{appointment.property.attachments.length}}
