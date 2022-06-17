@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // Big calendar arrows func 
-  changeWeek(type: string) {
+  changeWeek(type: string): void {
     if (type == 'next')
       this.selected.setDate(this.selected.getDate() + 7);
     else
@@ -38,14 +38,14 @@ export class DashboardComponent implements OnInit {
   }
 
   // Small calendar event emitter
-  calendarChange(date: string) {
+  calendarChange(date: string): void {
     let dateChanged = date.toString().replace('00:00:00', this.utils.generateTime(new Date().getHours(), 2).toString());
     this.selected = new Date(dateChanged)
   }
 
 
   // Appointment click func
-  showAppointmentModal(appointments: any, id: string, hour: any, week: any) {
+  showAppointmentModal(appointments: any, id: string, hour: any, week: any): void {
     let filteredAppointments: any[] = [];
 
     appointments.forEach((appointment: any,) => {
@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // Func for showing days in big calendar 
-  getDaysInWeek(id: number) {
+  getDaysInWeek(id: number): number {
     let day = this.selected.getDate();
     let weekDay = this.selected.getDay();
 
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // Func for getting last day in previous month
-  getLastDayInMonth(month: number) {
+  getLastDayInMonth(month: number): number {
     return new Date(this.selected.getFullYear(), this.selected.getMonth() - month, 31).getDate() < 31
       ?
       31 - new Date(this.selected.getFullYear(), this.selected.getMonth() - month, 31).getDate()

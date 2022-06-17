@@ -26,7 +26,7 @@ export class ModalComponent implements OnInit {
     this.appointment = this.data.appointments[this.itemNumber];
   }
 
-  changeApointment(type: string) {
+  changeApointment(type: string): void {
     if (type == 'next') {
       this.itemNumber++;
     } else {
