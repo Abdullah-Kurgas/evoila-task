@@ -33,12 +33,12 @@ export class DashboardComponent implements OnInit {
     else
       this.selected.setDate(this.selected.getDate() - 7);
 
-    this.selected = new Date(this.selected)
-
+    this.selected = new Date(this.selected);
   }
 
-  calendarChange(e: MatCalendar<any>) {
-
+  calendarChange(date: string) {
+    let dateChanged = date.toString().replace('00:00:00', new Date().getHours().toString()+':00:00');
+    this.selected = new Date(dateChanged)
   }
 
   showAppointmentModal(appointments: any, hour: any, week: any) {
@@ -83,8 +83,10 @@ export class DashboardComponent implements OnInit {
         appointmentDate.getDay() == this.selected.getDay() &&
         appointmentDate.getFullYear() === this.selected.getFullYear()) return true
     } else if (type == 'next') {
+      // console.log(this.selected.getHours(), appointmentDate.getHours());
+      
       if(
-        this.selected.getHours() > appointmentDate.getHours() &&
+        this.selected.getHours() < appointmentDate.getHours() &&
         appointmentDate.getFullYear() == this.selected.getFullYear() &&
         appointmentDate.getDate() == this.selected.getDate()
         ) return true;

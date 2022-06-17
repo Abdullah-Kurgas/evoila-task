@@ -1,11 +1,11 @@
 <div class="row m-0 pt-5 px-3 dashboard">
     <div class="col-2 px-0">
         <div class="border border-bottom-0 bg-white h-50">
-            <mat-calendar [(selected)]="selected" #calendar (selectedChange)="calendarChange(calendar)"></mat-calendar>
+            <mat-calendar [(selected)]="selected" (selectedChange)="calendarChange($event)"></mat-calendar>
         </div>
 
-        <div *ngFor="let appointment of appointments">
-            <div class="border bg-white p-3 h-50" *ngIf="checkAppointments(appointment, null, null, 'next')">
+        <div [class]="checkAppointments(appointment, null, null, 'next') ? 'h-50' : ''" *ngFor="let appointment of appointments">
+            <div class="border bg-white p-3 h-100" *ngIf="checkAppointments(appointment, null, null, 'next')">
                 <h4 class="text-secondary">NEXT VIEWING</h4>
                 <div class="image">
                     <img src="../../../assets/no-thumbnail.jpg" alt="image">
