@@ -46,6 +46,49 @@
           "__typename": "Appointment"
         },
         {
+          "id": "24424433",
+          "date": "2022-06-17T06:00:00.000+0000",
+          "maxInviteeCount": 3,
+          "attendeeCount": 2,
+          "showContactInformation": false,
+          "contact": {
+            "firstName": "",
+            "name": "",
+            "email": "",
+            "mobile": "",
+            "phone": "",
+            "address": {},
+            "fullName": ""
+          },
+          "property": {
+            "id": "2442370",
+            "name": "1 Zimmer in Stendal",
+            "inviteeCount": 2,
+            "address": {
+              "street": "Karlhagenbeckstr",
+              "houseNumber": "31",
+              "city": "Stendald",
+              "country": "Bosna",
+              "zipCode": "39576",
+              "__typename": "Address"
+            },
+            "attachments": [],
+            "user": {
+              "profile": {
+                "firstname": "Abdullah",
+                "name": "Kurgas",
+                "phone": "",
+                "gender": "NA",
+                "title": "NONE"
+              },
+              "usertype": "Agent",
+              "__typename": "LandlordUser"
+            },
+            "__typename": "Property"
+          },
+          "__typename": "Appointment"
+        },
+        {
           "id": "2442443",
           "date": "2022-06-17T13:00:00.000+0000",
           "maxInviteeCount": 3,

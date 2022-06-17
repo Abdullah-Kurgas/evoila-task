@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  // Big calendar arrows func 
   changeWeek(type: string) {
     if (type == 'next')
       this.selected.setDate(this.selected.getDate() + 7);
@@ -36,24 +37,35 @@ export class DashboardComponent implements OnInit {
     this.selected = new Date(this.selected);
   }
 
+  // Small calendar event emitter
   calendarChange(date: string) {
-    let dateChanged = date.toString().replace('00:00:00', new Date().getHours().toString()+':00:00');
+    let dateChanged = date.toString().replace('00:00:00', new Date().getHours().toString() + ':00:00');
     this.selected = new Date(dateChanged)
   }
 
-  showAppointmentModal(appointments: any, hour: any, week: any) {
+  // Appointment click func
+  showAppointmentModal(appointments: any, id: string, hour: any, week: any) {
     let filteredAppointments: any[] = [];
-    appointments.forEach((appointment: any) => {
+
+    appointments.forEach((appointment: any,) => {
       if (this.checkAppointments(appointment, hour, week, 'day')) {
         filteredAppointments.push(appointment);
       }
     });
 
     this.modal.open(ModalComponent, {
-      data: filteredAppointments
+      data: {
+        appointments: filteredAppointments.sort((a, b) => {
+          if (this.utils.getDateObj(a.date).getHours() < this.utils.getDateObj(b.date).getHours()) return -1
+          if (this.utils.getDateObj(a.date).getHours() > this.utils.getDateObj(b.date).getHours()) return 1
+          return 0
+        }),
+        appointmentId: id
+      }
     });
   }
 
+  // Func for showing days in big calendar 
   getDaysInWeek(id: number) {
     let day = this.selected.getDate();
     let weekDay = this.selected.getDay();
@@ -61,6 +73,7 @@ export class DashboardComponent implements OnInit {
     return day - (weekDay - id);
   }
 
+  // Func for getting last day in previous month
   getLastDayInMonth(month: number) {
     return new Date(this.selected.getFullYear(), this.selected.getMonth() - month, 31).getDate() < 31
       ?
@@ -69,6 +82,7 @@ export class DashboardComponent implements OnInit {
       new Date(this.selected.getFullYear(), this.selected.getMonth() - month, 31).getDate();
   }
 
+  // Func for putting every appointment in it's correct position
   checkAppointments(appointment: any, hour: any, week: any, type: string): boolean {
     let appointmentDate = new Date(appointment.date)
 
@@ -83,13 +97,11 @@ export class DashboardComponent implements OnInit {
         appointmentDate.getDay() == this.selected.getDay() &&
         appointmentDate.getFullYear() === this.selected.getFullYear()) return true
     } else if (type == 'next') {
-      // console.log(this.selected.getHours(), appointmentDate.getHours());
-      
-      if(
+      if (
         this.selected.getHours() < appointmentDate.getHours() &&
         appointmentDate.getFullYear() == this.selected.getFullYear() &&
         appointmentDate.getDate() == this.selected.getDate()
-        ) return true;
+      ) return true;
     }
 
     return false;

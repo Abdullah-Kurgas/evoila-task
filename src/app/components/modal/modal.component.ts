@@ -19,16 +19,20 @@ export class ModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,) { }
 
   ngOnInit(): void {
-    this.appointment = this.data[this.itemNumber];
+    this.data.appointments.forEach((el: any, i: number) => {
+      if (el.id == this.data.appointmentId) this.itemNumber = i;
+    });
+
+    this.appointment = this.data.appointments[this.itemNumber];
   }
 
   changeApointment(type: string) {
     if (type == 'next') {
       this.itemNumber++;
-    }else{
+    } else {
       this.itemNumber--;
     }
-    this.appointment = this.data[this.itemNumber];
+    this.appointment = this.data.appointments[this.itemNumber];
   }
 
 }
