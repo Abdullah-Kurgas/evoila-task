@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Utils } from 'src/app/shared/Utils';
 
 @Component({
   selector: 'app-modal',
@@ -8,8 +9,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ModalComponent implements OnInit {
 
+  utils = Utils;
+
   appointment: any;
-  appointmentDate!: Date;
   itemNumber: number = 0;
 
   constructor(
@@ -18,8 +20,6 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.appointment = this.data[this.itemNumber];
-
-    this.appointmentDate = new Date(this.appointment?.date);
   }
 
   changeApointment(type: string) {
@@ -29,7 +29,6 @@ export class ModalComponent implements OnInit {
       this.itemNumber--;
     }
     this.appointment = this.data[this.itemNumber];
-    this.appointmentDate = new Date(this.appointment?.date);
   }
 
 }

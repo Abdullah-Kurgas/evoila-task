@@ -2,13 +2,13 @@
     <div class="d-flex justify-content-between align-items-center p-3 border bg-white">
         <div class="d-flex align-items-center">
             <span class="d-flex align-items-center mx-2">
-                <mat-icon class="text-primary me-1 fs-5">calendar_today</mat-icon> {{appointmentDate.toDateString()}}
+                <mat-icon class="text-primary me-1 fs-5">calendar_today</mat-icon> {{utils.getDateObj(appointment.date).toDateString()}}
             </span>
             <span class="d-flex align-items-center mx-2">
                 <mat-icon class="text-primary me-1 fs-5">access_time</mat-icon>
-                {{appointmentDate.getHours().toString().length > 1 ? appointmentDate.getHours() :
-                '0'+appointmentDate.getHours()}}:00 - {{(appointmentDate.getHours()+1).toString().length > 1 ?
-                (appointmentDate.getHours()+1) : '0'+(appointmentDate.getHours()+1)}}:00
+                {{utils.getDateObj(appointment.date).getHours().toString().length > 1 ? utils.getDateObj(appointment.date).getHours() :
+                '0'+utils.getDateObj(appointment.date).getHours()}}:00 - {{(utils.getDateObj(appointment.date).getHours()+1).toString().length > 1 ?
+                (utils.getDateObj(appointment.date).getHours()+1) : '0'+(utils.getDateObj(appointment.date).getHours()+1)}}:00
             </span>
         </div>
         <div class="row align-items-center me-1">

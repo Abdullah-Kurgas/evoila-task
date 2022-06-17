@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  showAppointment(appointments: any, hour: any, week: any) {
+  showAppointmentModal(appointments: any, hour: any, week: any) {
     let filteredAppointments: any[] = [];
     appointments.forEach((appointment: any) => {
       if (this.checkAppointments(appointment, hour, week, 'day')) {
@@ -77,11 +77,17 @@ export class DashboardComponent implements OnInit {
         appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
         this.selected.toDateString() == appointmentDate.toDateString() &&
         hour == appointmentDate.getHours()) return true;
-    } else {
+    } else if (type == 'day') {
       if (
         appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
         appointmentDate.getDay() == this.selected.getDay() &&
         appointmentDate.getFullYear() === this.selected.getFullYear()) return true
+    } else if (type == 'next') {
+      if(
+        this.selected.getHours() > appointmentDate.getHours() &&
+        appointmentDate.getFullYear() == this.selected.getFullYear() &&
+        appointmentDate.getDate() == this.selected.getDate()
+        ) return true;
     }
 
     return false;

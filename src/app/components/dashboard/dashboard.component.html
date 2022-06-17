@@ -3,25 +3,33 @@
         <div class="border border-bottom-0 bg-white h-50">
             <mat-calendar [(selected)]="selected" #calendar (selectedChange)="calendarChange(calendar)"></mat-calendar>
         </div>
-        <div class="border bg-white p-3 h-50">
-            <h4 class="text-secondary">NEXT VIEWING</h4>
-            <div class="image">
-                <img src="" alt="image">
-            </div>
-            <div class="mt-3">
-                <p class="mb-0 fw-bold">Great apartman in east Berlin</p>
-                <p class="mb-0 text-secondary">Road 17, 10785 Berlin, Germany</p>
-            </div>
-            <div class="row text-secondary mt-3">
-                <span class="col-7 d-flex align-items-center my-1">
-                    <mat-icon>calendar_today</mat-icon> 10 OCTOBER 2017
-                </span>
-                <span class="col-5 d-flex align-items-center my-1">
-                    <mat-icon>access_time</mat-icon>14:00
-                </span>
-                <span class="col-6 d-flex align-items-center my-1">
-                    <mat-icon>person_outline</mat-icon>6 | 8
-                </span>
+
+        <div *ngFor="let appointment of appointments">
+            <div class="border bg-white p-3 h-50" *ngIf="checkAppointments(appointment, null, null, 'next')">
+                <h4 class="text-secondary">NEXT VIEWING</h4>
+                <div class="image">
+                    <img src="../../../assets/no-thumbnail.jpg" alt="image">
+                </div>
+                <div class="mt-3">
+                    <p class="mb-0 fw-bold">{{appointment.property.name}}</p>
+                    <p class="mb-0 text-secondary">Road {{appointment.property.address.houseNumber}},
+                        {{appointment.property.address.zipCode}} {{appointment.property.address.city}},
+                        {{appointment.property.address.country}}</p>
+                </div>
+                <div class="row text-secondary mt-3">
+                    <span class="col-7 d-flex align-items-center my-1">
+                        <mat-icon>calendar_today</mat-icon> {{utils.getDateObj(appointment.date).toDateString()}}
+                    </span>
+                    <span class="col-5 d-flex align-items-center my-1">
+                        <mat-icon>access_time</mat-icon> {{utils.getDateObj(appointment.date).getHours().toString().length > 1 ?
+                        utils.getDateObj(appointment.date).getHours() :
+                        '0'+utils.getDateObj(appointment.date).getHours()}}:00
+                    </span>
+                    <span class="col-6 d-flex align-items-center my-1">
+                        <mat-icon>person_outline</mat-icon>{{appointment.attendeeCount}} |
+                        {{appointment.maxInviteeCount}}
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -62,17 +70,18 @@
 
                                 <!-- Item -->
                                 <div class="item p-0" [class]="" *ngIf="week.id && hour.toString() != 'false'">
-                                    <div class="p-0" [class]="checkAppointments(appointment, hour, week, 'week') ? 'h-100':''"
+                                    <div class="p-0"
+                                        [class]="checkAppointments(appointment, hour, week, 'week') ? 'h-100':''"
                                         *ngFor="let appointment of appointments">
                                         <div class="bg-success h-100 p-2" role="button"
                                             *ngIf="checkAppointments(appointment, hour, week, 'week')"
-                                            (click)="showAppointment(appointments, hour, week)">
+                                            (click)="showAppointmentModal(appointments, hour, week)">
                                             <span>1 VIEWINGS</span>
                                         </div>
                                     </div>
                                 </div>
                         </div>
-                        
+
                     </div>
             </table>
         </div>

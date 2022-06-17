@@ -59,10 +59,14 @@ export class Utils {
         },
     ];
 
-    static getWeekData() {
+    static getWeekData(): { id: number, name: string }[] {
         return this.week;
     }
-    static getMonthsData() {
+    static getMonthsData(): { id: number, name: string }[] {
         return this.months;
+    }
+
+    static getDateObj(date: string): Date {
+        return new Date(date);
     }
 }
