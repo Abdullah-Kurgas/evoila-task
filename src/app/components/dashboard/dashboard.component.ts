@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Apollo, gql } from 'apollo-angular';
 import { Utils } from 'src/app/shared/Utils';
 import { ModalComponent } from '../modal/modal.component';
 
@@ -19,12 +20,21 @@ export class DashboardComponent implements OnInit {
 
   appointments!: any[];
 
-  constructor(private http: HttpClient, private modal: MatDialog) {}
+  constructor(private apollo: Apollo, private modal: MatDialog) { }
 
   ngOnInit(): void {
-    this.http.get('./assets/data.json').subscribe((res: any) => {
-      this.appointments = res.data.appointments.nodes;
-    });
+    this.apollo.query({
+      query: gql`{
+        allNodes{
+          id
+          date
+          maxInviteeCount
+          property
+        }
+      }`
+    }).subscribe((res: any) => {
+      this.appointments = res.data.allNodes;
+    })
   }
 
   // Big calendar arrows func
@@ -93,8 +103,8 @@ export class DashboardComponent implements OnInit {
     return this.generateDayInWeek(day) <= 0
       ? this.getLastDayInMonth(1) + this.generateDayInWeek(day)
       : this.getLastDayInMonth(0) < this.generateDayInWeek(day)
-      ? this.generateDayInWeek(day) - this.getLastDayInMonth(0)
-      : this.generateDayInWeek(day);
+        ? this.generateDayInWeek(day) - this.getLastDayInMonth(0)
+        : this.generateDayInWeek(day);
   }
 
   // Func for getting last day in previous month
@@ -105,16 +115,16 @@ export class DashboardComponent implements OnInit {
       31
     ).getDate() < 31
       ? 31 -
-          new Date(
-            this.selected.getFullYear(),
-            this.selected.getMonth() - month,
-            31
-          ).getDate()
+      new Date(
+        this.selected.getFullYear(),
+        this.selected.getMonth() - month,
+        31
+      ).getDate()
       : new Date(
-          this.selected.getFullYear(),
-          this.selected.getMonth() - month,
-          31
-        ).getDate();
+        this.selected.getFullYear(),
+        this.selected.getMonth() - month,
+        31
+      ).getDate();
   }
 
   // Func for putting every appointment in it's correct position
