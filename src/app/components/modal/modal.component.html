@@ -1,7 +1,5 @@
 <div class="apointment-modal">
-  <div
-    class="d-flex justify-content-between align-items-center p-3 border bg-white"
-  >
+  <div class="d-flex justify-content-between align-items-center p-3 border bg-white">
     <div class="d-flex align-items-center">
       <span class="d-flex align-items-center mx-2">
         <mat-icon class="text-primary me-1 fs-5">calendar_today</mat-icon>
@@ -9,35 +7,18 @@
       </span>
       <span class="d-flex align-items-center mx-2">
         <mat-icon class="text-primary me-1 fs-5">access_time</mat-icon>
-        {{
-          utils.generateTime(utils.getDateObj(appointment.date).getHours(), 1)
-        }}
-        -
-        {{
-          utils.generateTime(
-            utils.getDateObj(appointment.date).getHours() + 1,
-            1
-          )
-        }}
+        {{ utils.generateTime(utils.getDateObj(appointment.date).getHours(), 1) }} -
+        {{ utils.generateTime(utils.getDateObj(appointment.date).getHours() + 1, 1) }}
       </span>
     </div>
     <div class="row align-items-center me-1">
       <div class="col-6">
-        <mat-icon
-          (click)="changeApointment('prev')"
-          role="button"
-          *ngIf="itemNumber !== 0"
-          >keyboard_arrow_left
+        <mat-icon (click)="changeApointment('prev')" role="button" *ngIf="itemNumber !== 0">keyboard_arrow_left
         </mat-icon>
       </div>
       <div class="col-6">
-        <mat-icon
-          (click)="changeApointment('next')"
-          role="button"
-          *ngIf="data.appointments.length - 1 > itemNumber"
-        >
-          keyboard_arrow_right</mat-icon
-        >
+        <mat-icon (click)="changeApointment('next')" role="button" *ngIf="data.appointments.length - 1 > itemNumber">
+          keyboard_arrow_right</mat-icon>
       </div>
     </div>
   </div>
@@ -76,9 +57,7 @@
 
       <!-- I think this was data from attachments array, I got it empty so I will leave it like this with fixed data, so you can see how it looks -->
       <div class="my-3">
-        <div
-          class="p-3 border d-flex justify-content-between align-items-center"
-        >
+        <div class="p-3 border d-flex justify-content-between align-items-center">
           <div class="d-flex">
             <span class="d-flex align-items-center mx-2">
               <mat-icon class="text-primary me-1 fs-5">calendar_today</mat-icon>
@@ -90,18 +69,15 @@
             </span>
           </div>
           <span class="d-flex align-items-center my-1">
-            <mat-icon class="text-primary me-1 fs-5">person_outline</mat-icon> 6
-            | 8
+            <mat-icon class="text-primary me-1 fs-5">person_outline</mat-icon> 
+            6 | 8
           </span>
           <mat-icon class="text-secondary" role="button">more_vert</mat-icon>
         </div>
       </div>
 
       <!-- Create btn -->
-      <div
-        class="p-3 border d-flex justify-content-center align-items-center text-warning rounded-1"
-        role="button"
-      >
+      <div class="p-3 border d-flex justify-content-center align-items-center text-warning rounded-1" role="button">
         <mat-icon class="mx-1">add_circle</mat-icon>Create Viewing
       </div>
     </div>
