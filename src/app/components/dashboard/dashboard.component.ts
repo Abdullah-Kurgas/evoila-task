@@ -89,6 +89,7 @@ export class DashboardComponent implements OnInit {
     return day - (weekDay - id);
   }
 
+  // Get Day of week in number
   showDayOfWeek(day: number) {
     return this.generateDayInWeek(day) <= 0
       ? this.getLastDayInMonth(1) + this.generateDayInWeek(day)
