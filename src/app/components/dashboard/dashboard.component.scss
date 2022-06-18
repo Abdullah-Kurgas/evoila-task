@@ -26,13 +26,19 @@
             }
 
             .hour-item {
-                position: relative;
+                 position: relative;
                 background-color: unset !important;
             }
-            .hour-tracker{
+            .time-tracker{
                 position: absolute;
                 z-index: 100;
-                left: 5px;
+                display: flex;
+                align-items: center;
+
+                .line-tracker{
+                    height: 2px;
+                    overflow: unset;
+                }
             }
 
             .item {

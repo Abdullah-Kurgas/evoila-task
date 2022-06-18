@@ -92,7 +92,9 @@
             <div
               class="head-item"
               [class]="
-                todaysDay.getDate() == showDayOfWeek(i - 1)
+                todaysDay.getDate() == showDayOfWeek(i - 1) &&
+                todaysDay.getMonth() == selected.getMonth() &&
+                todaysDay.getFullYear() == selected.getFullYear()
                   ? 'badge bg-primary'
                   : ''
               "
@@ -111,7 +113,7 @@
 
               <!-- Hour tracker -->
               <div
-                class="hour-tracker badge bg-primary p-2"
+                class="time-tracker badge bg-primary p-2"
                 [style]="'top:' + todaysDay.getMinutes() * (100 / 60) + '%'"
                 *ngIf="
                   !week.id &&
