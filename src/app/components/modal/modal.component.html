@@ -5,17 +5,17 @@
     <div class="d-flex align-items-center">
       <span class="d-flex align-items-center mx-2">
         <mat-icon class="text-primary me-1 fs-5">calendar_today</mat-icon>
-        {{ utils.getDateObj(appointment?.date).toDateString() }}
+        {{ utils.getDateObj(appointment.date).toDateString() }}
       </span>
       <span class="d-flex align-items-center mx-2">
         <mat-icon class="text-primary me-1 fs-5">access_time</mat-icon>
         {{
-          utils.generateTime(utils.getDateObj(appointment?.date).getHours(), 1)
+          utils.generateTime(utils.getDateObj(appointment.date).getHours(), 1)
         }}
         -
         {{
           utils.generateTime(
-            utils.getDateObj(appointment?.date).getHours() + 1,
+            utils.getDateObj(appointment.date).getHours() + 1,
             1
           )
         }}
@@ -49,12 +49,12 @@
             <img src="../../../assets/no-thumbnail.jpg" alt="small-img" />
           </div>
           <div class="mx-3">
-            <p class="mb-0 fw-bold">{{ appointment?.property.name }}</p>
+            <p class="mb-0 fw-bold">{{ appointment.property.name }}</p>
             <p class="mb-0 text-secondary">
-              Road {{ appointment?.property.address.houseNumber }},
-              {{ appointment?.property.address.zipCode }}
-              {{ appointment?.property.address.city }},
-              {{ appointment?.property.address.country }}
+              Road {{ appointment.property.address.houseNumber }},
+              {{ appointment.property.address.zipCode }}
+              {{ appointment.property.address.city }},
+              {{ appointment.property.address.country }}
             </p>
           </div>
         </div>
@@ -64,11 +64,11 @@
           </div>
           <div class="mx-3">
             <p class="mb-0 fw-bold">
-              {{ appointment?.property.user.profile.firstname }}
-              {{ appointment?.property.user.profile.name }}
+              {{ appointment.property.user.profile.firstname }}
+              {{ appointment.property.user.profile.name }}
             </p>
             <p class="mb-0 text-secondary">
-              {{ appointment?.property.user.usertype }}
+              {{ appointment.property.user.usertype }}
             </p>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GraphqlService } from 'src/app/services/graphql.service';
+import { Appointment } from 'src/app/shared/interfaces/appointment';
 import { Utils } from 'src/app/shared/Utils';
 
 @Component({
@@ -14,7 +15,7 @@ export class DashboardComponent implements OnInit {
 
   time = [false, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
-  appointments!: any[];
+  appointments!: Appointment[];
 
   constructor(private graphqlService: GraphqlService) { }
 

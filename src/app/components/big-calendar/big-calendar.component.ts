@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Appointment } from 'src/app/shared/interfaces/appointment';
 import { Utils } from 'src/app/shared/Utils';
 import { ModalComponent } from '../modal/modal.component';
 
@@ -15,8 +16,8 @@ export class BigCalendarComponent implements OnInit {
   todaysDay: Date = new Date();
 
   @Input() selected!: Date;
-  @Input() appointments!: any[];
-  @Input() time!: any
+  @Input() appointments!: Appointment[];
+  @Input() time!: any[];
 
   constructor(private modal: MatDialog) { }
 
@@ -31,10 +32,10 @@ export class BigCalendarComponent implements OnInit {
   }
 
   // Appointment click func
-  showAppointmentModal(appointments: any, id: string, hour: any, week: any): void {
-    let filteredAppointments: any[] = [];
+  showAppointmentModal(appointments: Appointment[], id: string, hour: any, week: any): void {
+    let filteredAppointments: Appointment[] = [];
 
-    appointments.forEach((appointment: any) => {
+    appointments.forEach((appointment: Appointment) => {
       if (this.checkAppointments(appointment, 'day', hour, week)) {
         filteredAppointments.push(appointment);
       }
@@ -98,13 +99,13 @@ export class BigCalendarComponent implements OnInit {
   }
 
   // Func for putting every appointment in it's correct position
-  checkAppointments(appointment: any, type: string, hour?: any, week?: any, i?: any): boolean {
+  checkAppointments(appointment: Appointment, type: string, hour?: any, week?: any, i?: number): boolean {
     let appointmentDate: Date = new Date(appointment.date);
 
     if (type == 'week') {
       if (
         appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
-        this.showDayOfWeek(i - 1) == appointmentDate.getDate() &&
+        this.showDayOfWeek(i! - 1) == appointmentDate.getDate() &&
         appointmentDate.getMonth() == this.selected.getMonth() &&
         appointmentDate.getFullYear() == this.selected.getFullYear() &&
         hour == appointmentDate.getHours()

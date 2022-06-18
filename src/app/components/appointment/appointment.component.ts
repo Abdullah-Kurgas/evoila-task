@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Appointment } from 'src/app/shared/interfaces/appointment';
 import { Utils } from 'src/app/shared/Utils';
 
 @Component({
@@ -11,14 +12,14 @@ export class AppointmentComponent implements OnInit {
   utils = Utils;
 
   @Input() selected!: Date;
-  @Input() appointment: any;
+  @Input() appointment!: Appointment;
 
 
   constructor() { }
 
   ngOnInit(): void { }
 
-  checkNextAppointment(appointment: any) {
+  checkNextAppointment(appointment: Appointment) {
     if (
       this.selected.getHours() < this.utils.getDateObj(appointment.date).getHours() &&
       this.utils.getDateObj(appointment.date).getFullYear() == this.selected.getFullYear() &&

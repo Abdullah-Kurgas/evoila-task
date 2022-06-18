@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Appointment } from 'src/app/shared/interfaces/appointment';
 import { Utils } from 'src/app/shared/Utils';
 
 @Component({
@@ -10,17 +11,17 @@ import { Utils } from 'src/app/shared/Utils';
 export class ModalComponent implements OnInit {
   utils = Utils;
 
-  appointment: any;
+  appointment!: Appointment;
   itemNumber: number = 0;
 
   constructor(
     public modal: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: {appointments: Appointment[],appointmentId: string }
   ) {}
 
   ngOnInit(): void {
-    this.data.appointments.forEach((el: any, i: number) => {
-      if (el.id == this.data.appointmentId) this.itemNumber = i;
+    this.data.appointments.forEach((appointment: Appointment, i: number) => {
+      if (appointment.id == this.data.appointmentId) this.itemNumber = i;
     });
 
     this.appointment = this.data.appointments[this.itemNumber];
