@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Apollo, gql } from 'apollo-angular';
+import { GraphqlService } from 'src/app/services/graphql.service';
 import { Utils } from 'src/app/shared/Utils';
 import { ModalComponent } from '../modal/modal.component';
 
@@ -20,19 +19,10 @@ export class DashboardComponent implements OnInit {
 
   appointments!: any[];
 
-  constructor(private apollo: Apollo, private modal: MatDialog) { }
+  constructor(private modal: MatDialog, private graphqlService: GraphqlService) { }
 
   ngOnInit(): void {
-    this.apollo.query({
-      query: gql`{
-        allNodes{
-          id
-          date
-          maxInviteeCount
-          property
-        }
-      }`
-    }).subscribe((res: any) => {
+    this.graphqlService.executeAllNodes().subscribe((res: any) => {
       this.appointments = res.data.allNodes;
     })
   }
