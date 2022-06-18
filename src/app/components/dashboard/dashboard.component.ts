@@ -34,14 +34,4 @@ export class DashboardComponent implements OnInit {
       );
     this.selected = new Date(dateChanged);
   }
-
-  checkNextAppointment(appointment: any) {
-    if (
-      this.selected.getHours() < this.utils.getDateObj(appointment.date).getHours() &&
-      this.utils.getDateObj(appointment.date).getFullYear() == this.selected.getFullYear() &&
-      this.utils.getDateObj(appointment.date).getDate() == this.selected.getDate()
-    ) return true;
-
-    return false;
-  }
 }

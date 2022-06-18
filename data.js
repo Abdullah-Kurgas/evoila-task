@@ -82,7 +82,7 @@ module.exports = {
         },
         {
             "id": "2442442",
-            "date": "2022-06-18T15:00:00.000+0000",
+            "date": "2022-06-18T16:00:00.000+0000",
             "maxInviteeCount": 3,
             "attendeeCount": 2,
             "showContactInformation": false,

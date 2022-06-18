@@ -17,13 +17,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AppointmentComponent } from './components/appointment/appointment.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     ModalComponent,
-    BigCalendarComponent
+    BigCalendarComponent,
+    AppointmentComponent
   ],
   imports: [
     AppRoutingModule,
