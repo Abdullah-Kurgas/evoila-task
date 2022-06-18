@@ -5,47 +5,4 @@
             max-height: 10rem;
         }
     }
-
-    .table {
-        height: 85vh;
-        overflow-y: scroll;
-        border-bottom: 1px solid #dee2e6;
-
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    }
-
-    table {
-        .t-item {
-            .head-item {
-                height: 2.5rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .hour-item {
-                 position: relative;
-                background-color: unset !important;
-            }
-            .time-tracker{
-                position: absolute;
-                z-index: 100;
-                display: flex;
-                align-items: center;
-
-                .line-tracker{
-                    height: 2px;
-                    overflow: unset;
-                }
-            }
-
-            .item {
-                height: 10rem;
-                border-right: 1px solid #dee2e6;
-                border-top: 1px solid #dee2e6;
-            }
-        }
-    }
 }
