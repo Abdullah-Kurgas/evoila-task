@@ -1,8 +1,8 @@
 <div class="h-100">
     <div class="d-flex justify-content-between align-items-center border p-2 bg-white">
-        <h3 class="m-0">{{ showDayOfWeek(0) }} - {{ getLastDayInMonth(0) < generateDayInWeek(6) ?
-                generateDayInWeek(6) - getLastDayInMonth(0) : generateDayInWeek(6) }} {{
-                utils.getMonthsData()[selected.getMonth()].name }} {{ selected.getFullYear() }} </h3>
+        <h3 class="m-0">{{ showDayOfWeek(0) }} - {{ getLastDayInMonth(0) < generateDayInWeek(6) ? generateDayInWeek(6) -
+                getLastDayInMonth(0) : generateDayInWeek(6) }} {{ utils.getMonthsData()[selected.getMonth()].name }} {{
+                selected.getFullYear() }} </h3>
                 <div class="d-flex align-items-center">
                     <button mat-icon-button (click)="changeWeek('prev')">
                         <mat-icon mat-icon-button>keyboard_arrow_left</mat-icon>
@@ -22,11 +22,13 @@
 
                     <!-- Header -->
                     <div class="head-item" *ngIf="!week.id && hour.toString() == 'false'"></div>
-                    <div class="head-item"
-                        [class]="todaysDay.getDate() == showDayOfWeek(i - 1) && todaysDay.getMonth() == selected.getMonth() && todaysDay.getFullYear() == selected.getFullYear() ? 'badge bg-primary': ''"
-                        *ngIf="week.id && hour.toString() == 'false'">
-                        {{ showDayOfWeek(i - 1) }}
-                        {{ week.name.substring(0, 3).toLocaleUpperCase() }}
+                    <div class="head-item" *ngIf="week.id && hour.toString() == 'false'">
+                        <span class="p-2" [class]="todaysDay.getDate() == showDayOfWeek(i - 1) &&
+                                    todaysDay.getMonth() == selected.getMonth() &&
+                                    todaysDay.getFullYear() == selected.getFullYear() ? 'badge bg-primary': ''">
+                            {{ showDayOfWeek(i - 1) }}
+                            {{ week.name.substring(0, 3).toLocaleUpperCase() }}
+                        </span>
                     </div>
 
                     <!-- Hour side -->
@@ -43,8 +45,7 @@
 
                     <!-- Item -->
                     <div class="item p-0" *ngIf="week.id && hour.toString() != 'false'">
-                        <div class="p-0"
-                            [class]="checkAppointments(appointment, 'week', hour, week, i) ? 'h-100' : ''"
+                        <div class="p-0" [class]="checkAppointments(appointment, 'week', hour, week, i) ? 'h-100' : ''"
                             *ngFor="let appointment of appointments">
                             <div class="h-100 p-2 fw-bold" [class]="todaysDay.getDate() > utils.getDateObj(appointment.date).getDate() || todaysDay.getMonth() >
                                 utils.getDateObj(appointment.date).getMonth() ? 'bg-light' : 'bg-dark text-light'"
