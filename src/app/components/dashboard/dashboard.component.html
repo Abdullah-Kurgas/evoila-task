@@ -1,18 +1,28 @@
-<div class="row m-0 pt-5 px-3 dashboard">
-    <div class="col-2 px-0">
-        <div class="border bg-white h-50">
-            <mat-calendar [(selected)]="selected" (selectedChange)="calendarChange($event)"></mat-calendar>
-        </div>
-
-        <div class="h-50">
-            <div *ngFor="let appointment of appointments">
-                <app-appointment [appointment]="appointment" [selected]="selected"></app-appointment>
-            </div>
-        </div>
-
+<div class="p-4">
+    <div class="d-flex">
+        <select class="form-select w-25 me-3">
+            <option selected>All properties</option>
+        </select>
+        <select class="form-select w-25 me-3">
+            <option selected>All agents</option>
+        </select>
     </div>
+    <div class="row m-0 pt-4">
+        <div class="col-2 px-0">
+            <div class="border bg-white">
+                <mat-calendar [(selected)]="selected" (selectedChange)="calendarChange($event)"></mat-calendar>
+            </div>
 
-    <div class="col-10 border px-0">
-        <app-big-calendar [appointments]="appointments" [time]="time" [selected]="selected"></app-big-calendar>
+            <div class="h-50">
+                <div *ngFor="let appointment of appointments">
+                    <app-appointment [appointment]="appointment" [selected]="selected"></app-appointment>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-10 px-0">
+            <app-big-calendar [appointments]="appointments" [time]="time" [selected]="selected"></app-big-calendar>
+        </div>
     </div>
 </div>

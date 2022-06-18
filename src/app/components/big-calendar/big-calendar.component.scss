@@ -1,7 +1,8 @@
 .table {
-    height: 85vh;
+    height: 80vh;
     overflow-y: scroll;
     border-bottom: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
 
     table {
         .t-item {
@@ -31,7 +32,7 @@
 
             .item {
                 height: 10rem;
-                border-right: 1px solid #dee2e6;
+                border-left: 1px solid #dee2e6;
                 border-top: 1px solid #dee2e6;
             }
         }
