@@ -8,12 +8,12 @@
     </div>
 
     <div
-      [class]="checkAppointments(appointment, null, null, 'next') ? 'h-50' : ''"
+      [class]="checkAppointments(appointment, 'next') ? 'h-50' : ''"
       *ngFor="let appointment of appointments"
     >
       <div
         class="border bg-white p-3 h-100"
-        *ngIf="checkAppointments(appointment, null, null, 'next')"
+        *ngIf="checkAppointments(appointment, 'next')"
       >
         <h4 class="text-secondary">NEXT VIEWING</h4>
         <div class="image">
@@ -44,7 +44,7 @@
           </span>
           <span class="col-6 d-flex align-items-center my-1">
             <mat-icon class="fs-5">person_outline</mat-icon
-            >{{ appointment.attendeeCount }} |
+            >{{ appointment.property.inviteeCount }} |
             {{ appointment.maxInviteeCount }}
           </span>
         </div>
@@ -140,7 +140,7 @@
               <div
                 class="p-0"
                 [class]="
-                  checkAppointments(appointment, hour, week, 'week')
+                  checkAppointments(appointment, 'week', hour, week, i)
                     ? 'h-100'
                     : ''
                 "
@@ -157,7 +157,7 @@
                       : 'bg-dark text-light'
                   "
                   role="button"
-                  *ngIf="checkAppointments(appointment, hour, week, 'week')"
+                  *ngIf="checkAppointments(appointment, 'week', hour, week, i)"
                   (click)="
                     showAppointmentModal(
                       appointments,

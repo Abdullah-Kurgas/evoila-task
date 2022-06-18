@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
     let filteredAppointments: any[] = [];
 
     appointments.forEach((appointment: any) => {
-      if (this.checkAppointments(appointment, hour, week, 'day')) {
+      if (this.checkAppointments(appointment,'day', hour, week)) {
         filteredAppointments.push(appointment);
       }
     });
@@ -120,34 +120,25 @@ export class DashboardComponent implements OnInit {
   // Func for putting every appointment in it's correct position
   checkAppointments(
     appointment: any,
-    hour: any,
-    week: any,
-    type: string
+    type: string,
+    hour?: any,
+    week?: any,
+    i?: any,
   ): boolean {
     let appointmentDate: Date = new Date(appointment.date);
-    let firstDayInWeek: number =
-      this.generateDayInWeek(0) <= 0
-        ? this.getLastDayInMonth(1) + this.generateDayInWeek(0)
-        : this.generateDayInWeek(0);
-    let lastDayInWeek: number =
-      this.getLastDayInMonth(0) < this.generateDayInWeek(6)
-        ? this.generateDayInWeek(6) - this.getLastDayInMonth(0)
-        : this.generateDayInWeek(6);
 
     if (type == 'week') {
       if (
         appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
-        appointmentDate.getDate() >= firstDayInWeek &&
-        appointmentDate.getDate() <= lastDayInWeek &&
-        appointmentDate.getFullYear() === this.selected.getFullYear() &&
+        this.showDayOfWeek(i-1) == appointmentDate.getDate() &&
+        appointmentDate.getMonth() == this.selected.getMonth() &&
+        appointmentDate.getFullYear() == this.selected.getFullYear() &&
         hour == appointmentDate.getHours()
       )
         return true;
     } else if (type == 'day') {
       if (
         appointmentDate.toDateString().includes(week.name.substring(0, 3)) &&
-        appointmentDate.getDate() > firstDayInWeek &&
-        appointmentDate.getDate() < lastDayInWeek &&
         appointmentDate.getFullYear() === this.selected.getFullYear()
       )
         return true;
