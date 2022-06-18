@@ -13,8 +13,7 @@ export class BigCalendarComponent implements OnInit {
 
   utils = Utils;
 
-  todaysDay: Date = new Date();
-
+  @Input() todaysDay!: Date;
   @Input() selected!: Date;
   @Input() appointments!: Appointment[];
   @Input() time!: any[];

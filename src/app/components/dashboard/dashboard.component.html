@@ -13,16 +13,14 @@
                 <mat-calendar [(selected)]="selected" (selectedChange)="calendarChange($event)"></mat-calendar>
             </div>
 
-            <div class="h-50">
-                <div *ngFor="let appointment of appointments">
-                    <app-appointment [appointment]="appointment" [selected]="selected"></app-appointment>
-                </div>
+            <div *ngIf="checkNextAppointment(appointments)">
+                <app-appointment [appointment]="checkNextAppointment(appointments)" [selected]="selected" [todaysDay]="todaysDay"></app-appointment>
             </div>
 
         </div>
 
         <div class="col-10 px-0">
-            <app-big-calendar [appointments]="appointments" [time]="time" [selected]="selected"></app-big-calendar>
+            <app-big-calendar [appointments]="appointments" [time]="time" [selected]="selected" [todaysDay]="todaysDay"></app-big-calendar>
         </div>
     </div>
 </div>

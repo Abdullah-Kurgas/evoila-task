@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   utils = Utils;
 
   selected: Date = new Date();
+  todaysDay: Date = new Date();
 
   time = [false, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
@@ -34,5 +35,22 @@ export class DashboardComponent implements OnInit {
         this.utils.generateTime(new Date().getHours(), 2).toString()
       );
     this.selected = new Date(dateChanged);
+  }
+
+  checkNextAppointment(appointments: Appointment[]) {
+    let filteredAppointments: Appointment[] = [];
+
+    appointments?.forEach((appointment: Appointment) => {
+      if (
+        this.selected.getHours() < this.utils.getDateObj(appointment.date).getHours() &&
+        this.utils.getDateObj(appointment.date).getFullYear() == this.selected.getFullYear() &&
+        this.utils.getDateObj(appointment.date).getDate() == this.selected.getDate() &&
+        this.selected.getDate() == this.todaysDay.getDate()
+      ) {
+        filteredAppointments.push(appointment);
+      }
+    });
+    
+    return filteredAppointments.length != 0 ? filteredAppointments[0] : undefined;
   }
 }

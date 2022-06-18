@@ -11,22 +11,13 @@ export class AppointmentComponent implements OnInit {
 
   utils = Utils;
 
+  @Input() todaysDay!: Date;
   @Input() selected!: Date;
-  @Input() appointment!: Appointment;
+  @Input() appointment?: Appointment;
 
 
   constructor() { }
 
   ngOnInit(): void { }
-
-  checkNextAppointment(appointment: Appointment) {
-    if (
-      this.selected.getHours() < this.utils.getDateObj(appointment.date).getHours() &&
-      this.utils.getDateObj(appointment.date).getFullYear() == this.selected.getFullYear() &&
-      this.utils.getDateObj(appointment.date).getDate() == this.selected.getDate()
-    ) return true;
-
-    return false;
-  }
 
 }
