@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { GraphqlService } from 'src/app/services/graphql.service';
 import { Appointment } from 'src/app/shared/interfaces/appointment';
 import { Utils } from 'src/app/shared/Utils';
@@ -26,6 +26,11 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  // Func from big-calendar comp (func for arrows)
+  changeWeek(date: Date){
+    this.selected = date;
+  }
+
   // Small calendar event emitter
   calendarChange(date: string): void {
     let dateChanged = date
@@ -37,6 +42,7 @@ export class DashboardComponent implements OnInit {
     this.selected = new Date(dateChanged);
   }
 
+  // Func for showing next appointment
   checkNextAppointment(appointments: Appointment[]) {
     let filteredAppointments: Appointment[] = [];
 
