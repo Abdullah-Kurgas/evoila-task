@@ -1,6 +1,7 @@
 <div class="h-100">
     <div class="d-flex justify-content-between align-items-center border p-2 bg-white">
 
+        <!-- This will display something like (20-27 June 2022) -->
         <h3 class="m-0">{{ showDayOfWeek(0) }} - {{ getLastDayInMonth(0) < generateDayInWeek(6) ? generateDayInWeek(6) -
                 getLastDayInMonth(0) : generateDayInWeek(6) }} {{ utils.getMonthsData()[selected.getMonth()].name }} {{
                 selected.getFullYear() }} </h3>
@@ -26,7 +27,7 @@
                 *ngFor="let week of utils.getWeekData(); let i = index">
                 <div class="p-0" *ngFor="let hour of generateTime(time)">
 
-                    <!-- Header -->
+                    <!-- Header displays week && day like (3 WED) -->
                     <div class="head-item" *ngIf="!week.id && hour.toString() == 'false'"></div>
                     <div class="head-item" *ngIf="week.id && hour.toString() == 'false'">
                         <span class="p-2" [class]="todaysDay.getDate() == showDayOfWeek(i - 1) &&
@@ -49,18 +50,21 @@
                         </div>
                     </div>
 
-                    <!-- Item -->
+                    <!-- Item (appointment) -->
                     <div class="item p-0" *ngIf="week.id && hour.toString() != 'false'">
                         <div class="p-0" [class]="checkAppointments(appointment, 'week', hour, week, i) ? 'h-100' : ''"
                             *ngFor="let appointment of appointments">
+
                             <div class="h-100 p-2 fw-bold" [class]="todaysDay.getDate() > utils.getDateObj(appointment.date).getDate() || todaysDay.getMonth() >
                                 utils.getDateObj(appointment.date).getMonth() ? 'bg-light' : 'bg-dark text-light'"
                                 role="button" *ngIf="checkAppointments(appointment, 'week', hour, week, i)"
                                 (click)="showAppointmentModal(appointments, appointment.id, hour, week)">
+
                                 <span>{{ appointment.property.attachments.length }}
                                     {{ appointment.property.attachments.length !== 1? "VIEWINGS": "VIEWING"
                                     }}</span>
                             </div>
+
                         </div>
                     </div>
 
