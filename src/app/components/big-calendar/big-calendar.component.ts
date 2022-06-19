@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 import { Appointment } from 'src/app/shared/interfaces/appointment';
+import { AppState } from 'src/app/shared/interfaces/appState';
 import { Utils } from 'src/app/shared/Utils';
 import { ModalComponent } from '../modal/modal.component';
 
@@ -18,9 +20,7 @@ export class BigCalendarComponent implements OnInit {
   @Input() appointments!: Appointment[];
   @Input() time!: any[];
 
-  @Output() changeSelected = new EventEmitter<Date>();
-
-  constructor(private modal: MatDialog) { }
+  constructor(private modal: MatDialog, private store: Store<AppState>) { }
 
   ngOnInit(): void { }
 
@@ -29,11 +29,12 @@ export class BigCalendarComponent implements OnInit {
     if (type == 'next') this.selected.setDate(this.selected.getDate() + 7);
     else this.selected.setDate(this.selected.getDate() - 7);
 
-    this.changeSelected.emit(new Date(this.selected));
+
+    this.store.dispatch({type: new Date(this.selected).toString()});
   }
 
   returnToToday(){
-    this.changeSelected.emit(new Date());
+    this.store.dispatch({type: new Date().toString()});
   }
 
   // Appointment click func

@@ -5,6 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 
+import { StoreModule } from "@ngrx/store";
+import { dateReducer } from "./store/reducer/date.reducer";
+
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ModalComponent } from './components/modal/modal.component';
@@ -39,6 +42,7 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
     MatDialogModule,
     MatIconModule,
     MatNativeDateModule,
+    StoreModule.forRoot({date: dateReducer})
   ],
   providers: [],
   bootstrap: [AppComponent]

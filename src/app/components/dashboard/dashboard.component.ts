@@ -1,6 +1,8 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { GraphqlService } from 'src/app/services/graphql.service';
 import { Appointment } from 'src/app/shared/interfaces/appointment';
+import { AppState } from 'src/app/shared/interfaces/appState';
 import { Utils } from 'src/app/shared/Utils';
 
 @Component({
@@ -18,17 +20,20 @@ export class DashboardComponent implements OnInit {
 
   appointments!: Appointment[];
 
-  constructor(private graphqlService: GraphqlService) { }
+  constructor(private graphqlService: GraphqlService, private store: Store<AppState>) {
+     this.store.select((store)=> store.date).subscribe((date: Date)=>{
+        this.selected = date;
+      });
+   }
 
   ngOnInit(): void {
+    // this.selected$.subscribe((date: Date)=>{
+    //   this.selected = date;
+    // });
+
     this.graphqlService.executeAllNodes().subscribe((res: any) => {
       this.appointments = res.data.allNodes;
     })
-  }
-
-  // Func from big-calendar comp (func for arrows)
-  changeWeek(date: Date){
-    this.selected = date;
   }
 
   // Small calendar event emitter
