@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
       if (
         this.selected.getHours() < this.utils.getDateObj(appointment.date).getHours() &&
         this.utils.getDateObj(appointment.date).getFullYear() == this.selected.getFullYear() &&
-        this.utils.getDateObj(appointment.date).getDate() == this.selected.getDate() &&
+        this.utils.getDateObj(appointment.date).getMonth() == this.selected.getMonth() &&
         this.selected.getDate() == this.todaysDay.getDate()
       ) {
         filteredAppointments.push(appointment);
