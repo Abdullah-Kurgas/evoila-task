@@ -39,87 +39,6 @@ module.exports = {
                 },
             },
         },
-
-
-        {
-            "id": "2442441",
-            "date": "2022-06-19T11:00:00.000+0000",
-            "maxInviteeCount": 3,
-            "attendeeCount": 2,
-            "showContactInformation": false,
-            "contact": {
-                "firstName": "",
-                "name": "",
-                "email": "",
-                "mobile": "",
-                "phone": "",
-                "address": {},
-                "fullName": ""
-            },
-            "property": {
-                "id": "2442379",
-                "name": "2 Zimmer in Stendal",
-                "inviteeCount": 2,
-                "address": {
-                    "street": "Karlhagenbeckstr",
-                    "houseNumber": "31",
-                    "city": "Stendal",
-                    "country": "DE",
-                    "zipCode": "39576",
-                },
-                "attachments": [],
-                "user": {
-                    "profile": {
-                        "firstname": "Max",
-                        "name": "Mustermann",
-                        "phone": "",
-                        "gender": "NA",
-                        "title": "NONE"
-                    },
-                    "usertype": "COMPANYADMIN",
-                },
-            },
-        },
-        {
-            "id": "2442442",
-            "date": "2022-06-19T17:00:00.000+0000",
-            "maxInviteeCount": 3,
-            "attendeeCount": 2,
-            "showContactInformation": false,
-            "contact": {
-                "firstName": "",
-                "name": "",
-                "email": "",
-                "mobile": "",
-                "phone": "",
-                "address": {},
-                "fullName": ""
-            },
-            "property": {
-                "id": "2442379",
-                "name": "2 Zimmer in Stendal",
-                "inviteeCount": 2,
-                "address": {
-                    "street": "Karlhagenbeckstr",
-                    "houseNumber": "31",
-                    "city": "Stendal",
-                    "country": "DE",
-                    "zipCode": "39576",
-                },
-                "attachments": [],
-                "user": {
-                    "profile": {
-                        "firstname": "Max",
-                        "name": "Mustermann",
-                        "phone": "",
-                        "gender": "NA",
-                        "title": "NONE"
-                    },
-                    "usertype": "COMPANYADMIN",
-                },
-            },
-        },
-
         {
             "id": "2442150",
             "date": "2019-02-27T11:00:00.000+0000",
@@ -198,5 +117,5 @@ module.exports = {
                 },
             },
         }
-    ],
+    ]
 }
