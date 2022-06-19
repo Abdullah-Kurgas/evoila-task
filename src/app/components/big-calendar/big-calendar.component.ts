@@ -32,6 +32,10 @@ export class BigCalendarComponent implements OnInit {
     this.changeSelected.emit(new Date(this.selected));
   }
 
+  returnToToday(){
+    this.changeSelected.emit(new Date());
+  }
+
   // Appointment click func
   showAppointmentModal(appointments: Appointment[], id: string, hour: any, week: any): void {
     let filteredAppointments: Appointment[] = [];
