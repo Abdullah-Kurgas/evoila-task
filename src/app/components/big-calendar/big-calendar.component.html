@@ -24,7 +24,7 @@
 
             <div class="t-item" [style.width]="!week.id ? '6rem' : '14rem'"
                 *ngFor="let week of utils.getWeekData(); let i = index">
-                <div class="p-0" *ngFor="let hour of time">
+                <div class="p-0" *ngFor="let hour of generateTime(time)">
 
                     <!-- Header -->
                     <div class="head-item" *ngIf="!week.id && hour.toString() == 'false'"></div>

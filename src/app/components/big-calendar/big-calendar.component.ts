@@ -18,11 +18,23 @@ export class BigCalendarComponent implements OnInit {
   @Input() todaysDay!: Date;
   @Input() selected!: Date;
   @Input() appointments!: Appointment[];
-  @Input() time!: any[];
+  @Input() time!: number;
+
+  hours: any = [false];
+  hour: number = 0;
 
   constructor(private modal: MatDialog, private store: Store<AppState>) { }
 
   ngOnInit(): void { }
+
+  generateTime(time: number) {
+    if (this.hour < 12) {
+      this.hours.push(this.hour + time);
+      this.hour++
+    };
+
+    return this.hours;
+  }
 
   // Calendar arrows func
   changeWeek(type: string): void {
@@ -30,11 +42,11 @@ export class BigCalendarComponent implements OnInit {
     else this.selected.setDate(this.selected.getDate() - 7);
 
 
-    this.store.dispatch({type: new Date(this.selected).toString()});
+    this.store.dispatch({ type: new Date(this.selected).toString() });
   }
 
-  returnToToday(){
-    this.store.dispatch({type: new Date().toString()});
+  returnToToday() {
+    this.store.dispatch({ type: new Date().toString() });
   }
 
   // Appointment click func

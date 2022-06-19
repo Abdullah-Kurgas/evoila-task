@@ -16,21 +16,17 @@ export class DashboardComponent implements OnInit {
   selected: Date = new Date();
   todaysDay: Date = new Date();
 
-  time = [false, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+  time = 8;
 
   appointments!: Appointment[];
 
   constructor(private graphqlService: GraphqlService, private store: Store<AppState>) {
-     this.store.select((store)=> store.date).subscribe((date: Date)=>{
-        this.selected = date;
-      });
-   }
+    this.store.select((store) => store.date).subscribe((date: Date) => {
+      this.selected = date;
+    });
+  }
 
   ngOnInit(): void {
-    // this.selected$.subscribe((date: Date)=>{
-    //   this.selected = date;
-    // });
-
     this.graphqlService.executeAllNodes().subscribe((res: any) => {
       this.appointments = res.data.allNodes;
     })
@@ -61,7 +57,7 @@ export class DashboardComponent implements OnInit {
         filteredAppointments.push(appointment);
       }
     });
-    
+
     return filteredAppointments.length != 0 ? filteredAppointments[0] : undefined;
   }
 }
